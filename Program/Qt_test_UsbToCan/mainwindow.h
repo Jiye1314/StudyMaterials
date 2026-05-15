@@ -33,8 +33,11 @@ private slots:
 private:
     void OpenDevice();
     void get_can_frame(ZCAN_Transmit_Data& can_data, canid_t id);
-    // 静态线程函数
+    void get_canfd_frame(ZCAN_TransmitFD_Data& canfd_data, canid_t id);
+
+    // 静态线程函数 CAN
     static void thread_task(CHANNEL_HANDLE channelKey);
+    static void thread_taskFD(CHANNEL_HANDLE handle);
     // 线程指针数组
     QVector<QThread*> thd_handle;
     //
