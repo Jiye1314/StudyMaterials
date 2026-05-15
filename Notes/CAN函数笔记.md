@@ -1,6 +1,6 @@
 [TOC]
 
-## 3.2节CAN接口库函数
+## 3.2节 CAN函数接口定义
 
 ### 函数速查表
 
@@ -503,7 +503,7 @@ STATUS_OK 表示设置成功，STATUS_ERR 表示设置失败。
 
 | 配置功能               | path 写法                    | value 示例    | 说明                                                    |
 | ---------------------- | --------------------------- | ------------- | ------------------------------------------------------- |
-| 设置 CANn 波特率       | `n/baud_rate`               | `"250000"`     | 通道 n 的波特率                                         |
+| 设置 CAN n 波特率      | `n/baud_rate`               | `"250000"`     | 通道 n 的波特率                                         |
 | 自定义波特率           | `n/baud_rate_custom`        | `"125000"`     | 通道 n 的自定义波特率                                   |
 | 终端电阻               | `n/internal_resistance`      | `"0"`          | 0 = 关闭，1 = 开启                                      |
 | 环回模式（自测用）     | `n/mode`                    | `"1"`          | 1 = 环回模式，自发自收                                   |
@@ -1048,6 +1048,107 @@ resp
 ```
 
 ---
+
+
+
+## 3.1节 数据结构定义
+
+#### ZCAN_DEVICE_INFO
+
+结构体详情见程序清单 3.1，包含设备的一些基本信息，在函数 ZCAN_GetDeviceInf 中被填充。
+
+程序清单 3.1 ZCAN_DEVICE_INFO 结构体成员
+
+```c++
+typedef struct tagZCAN_DEVICE_INFO {
+ USHORT hw_Version;
+ USHORT fw_Version;
+ USHORT dr_Version;
+ USHORT in_Version;
+ USHORT irq_Num;
+ BYTE can_Num;
+ UCHAR str_Serial_Num[20];
+ UCHAR str_hw_Type[40];
+ USHORT reserved[4];
+}ZCAN_DEVICE_INFO;
+```
+
+成员
+
+```c++
+hw_Version
+硬件版本号，16 进制，比如 0x0100 表示 V1.00。
+fw_Version
+固件版本号，16 进制。
+dr_Version
+驱动程序版本号，16 进制。
+in_Version
+接口库版本号，16 进制。
+irq_Num
+板卡所使用的中断号。
+can_Num
+表示有几路通道。
+str_Serial_Num
+此板卡的序列号
+str_hw_Type
+硬件类型，比如” USBCAN V1.00”（注意：包括字符串结束符’\0’）。
+reserved
+仅作保留，不设置。
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
