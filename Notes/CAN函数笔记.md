@@ -1055,21 +1055,21 @@ resp
 
 #### ZCAN_DEVICE_INFO
 
-结构体详情见程序清单 3.1，包含设备的一些基本信息，在函数 ZCAN_GetDeviceInf 中被填充。
+​	结构体详情见程序清单 3.1，包含设备的一些基本信息，在函数 ZCAN_GetDeviceInf 中被填充。
 
 程序清单 3.1 ZCAN_DEVICE_INFO 结构体成员
 
 ```c++
 typedef struct tagZCAN_DEVICE_INFO {
- USHORT hw_Version;
- USHORT fw_Version;
- USHORT dr_Version;
- USHORT in_Version;
- USHORT irq_Num;
- BYTE can_Num;
- UCHAR str_Serial_Num[20];
- UCHAR str_hw_Type[40];
- USHORT reserved[4];
+     USHORT hw_Version;
+     USHORT fw_Version;
+     USHORT dr_Version;
+     USHORT in_Version;
+     USHORT irq_Num;
+     BYTE can_Num;
+     UCHAR str_Serial_Num[20];
+     UCHAR str_hw_Type[40];
+     USHORT reserved[4];
 }ZCAN_DEVICE_INFO;
 ```
 
@@ -1096,13 +1096,86 @@ reserved
 仅作保留，不设置。
 ```
 
+#### ZCAN_CHANNEL_INIT_CONFIG
 
+​	结构体详情见程序清单 3.2，定义了初始化配置的参数，调用 ZCAN_InitCAN 之前，要先初始化该结构体。
 
+程序清单 3.2 ZCAN_CHANNEL_INIT_CONFIG 结构体成员
 
+```c++
+ef struct tagZCAN_CHANNEL_INIT_CONFIG {
+     UINT can_type; // 0:can 1:canfd
+     union
+     {
+         struct
+         {
+             UINT acc_code;
+             UINT acc_mask;
+             UINT reserved;
+             BYTE filter;
+             BYTE timing0;
+             BYTE timing1;
+             BYTE mode;
+         }can;
+         struct
+         {
+             UINT acc_code;
+             UINT acc_mask;
+             UINT abit_timing;
+             UINT dbit_timing;
+             UINT brp;
+             BYTE filter;
+             BYTE mode;
+             USHORT pad;
+             UINT reserved;
+         }canfd;
+     };
+}ZCAN_CHANNEL_INIT_CONFIG;
+```
 
+成员
 
-
-
+```c++
+can_type
+设备类型， 0 表示 CAN 设备，1 表示 CANFD 设备。
+1、CAN 设备
+    acc_code
+    SJA1000 的帧过滤验收码，对经过屏蔽码过滤为“有关位”进行匹配，全部匹配成功后，此报文可以被接收，否则不接收。推荐设置为 0。
+    acc_mask
+    SJA1000 的帧过滤屏蔽码，对接收的 CAN 帧 ID 进行过滤，位为 0 的是“有关位”，位为 1 的是“无关位”。推荐设置为 0xFFFFFFFF，即全部接收。
+    reserved
+    仅作保留，不设置。
+    filter
+    滤波方式，=1 表示单滤波，=0 表示双滤波。
+    timing0
+    忽略，不设置。
+    timing1
+    忽略，不设置。
+    mode
+    工作模式，=0 表示正常模式（相当于正常节点），=1 表示只听模式（只接收，不影响总线）。
+	注：当设备类型为 PCI-5010-U、PCI-5020-U、USBCAN-E-U、 USBCAN-2E-U、USBCAN-4E-U、CANDTU 时，帧过滤（acc_code 和 acc_mask 忽略）采用 GetIProperty 设置，详见 GetIProperty。
+2、CANFD 设备
+    acc_code
+    验收码，同 CAN 设备。
+    acc_mask
+    屏蔽码，同 CAN 设备。
+    abit_timing
+    忽略，不设置。
+    dbit_timing
+    忽略，不设置。
+    brp
+    波特率预分频因子，设置为 0。
+    filter
+    滤波方式，同 CAN 设备。
+    mode
+    模式，同 CAN 设备。
+    pad
+    数据对齐，不设置。
+    reserved
+    仅作保留，不设置。
+	注：当设备类型为 USBCANFD-100U、USBCANFD-200U、USBCANFD-MINI 时，帧过滤(acc_code和 acc_mask 忽略)采用 GetIProperty 设置，详见 GetIProperty。
+	注：当设备类型为 PCIECANFD-100U、PCIECANFD-400U、MiniPCIeCANFD、M.2CANFD 时，模式mode 在正常模式(0)和只听模式(1)基础上，支持自发自收模式(2)和单次发送模式(3)。单次发送模式：CAN处于正常模式，但是发送失败时不会进行重发，此时发送超时无效。
+```
 
 
 
