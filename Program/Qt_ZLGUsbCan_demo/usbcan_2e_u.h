@@ -1,0 +1,31 @@
+#ifndef USBCAN_2E_U_H
+#define USBCAN_2E_U_H
+
+#include <QObject>
+#include <QDebug>
+#include "zlgcan.h"
+#include <QEventLoop>
+#include <QThread>
+#include <QDateTime>
+
+class USBCAN_2E_U : public QObject
+{
+    Q_OBJECT
+public:
+    explicit USBCAN_2E_U(QObject *parent = nullptr);
+
+signals:
+
+public:
+//    bool openDevice();
+//    bool closeDevice();
+//    bool timerSend();
+//    void get_can_frame(ZCAN_Transmit_Data& can_data, canid_t id);
+//    void thread_task(CHANNEL_HANDLE handle);
+
+private:
+
+
+};
+
+#endif // USBCAN_2E_U_H
