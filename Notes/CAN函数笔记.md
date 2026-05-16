@@ -1053,6 +1053,8 @@ resp
 
 ## 3.1节 数据结构定义
 
+### 设备配置相关结构体
+
 #### ZCAN_DEVICE_INFO
 
 ​	结构体详情见程序清单 3.1，包含设备的一些基本信息，在函数 ZCAN_GetDeviceInf 中被填充。
@@ -1153,7 +1155,7 @@ can_type
     忽略，不设置。
     mode
     工作模式，=0 表示正常模式（相当于正常节点），=1 表示只听模式（只接收，不影响总线）。
-	注：当设备类型为 PCI-5010-U、PCI-5020-U、USBCAN-E-U、 USBCAN-2E-U、USBCAN-4E-U、CANDTU 时，帧过滤（acc_code 和 acc_mask 忽略）采用 GetIProperty 设置，详见 GetIProperty。
+	注：当设备类型为 PCI-5010-U、PCI-5020-U、USBCAN-E-U、 USBCAN-2E-U、USBCAN-4E-U、CANDTU 时，帧过滤（acc_code 和 acc_mask 忽略）采用 GetIProperty 设置，详GetIProperty。
 2、CANFD 设备
     acc_code
     验收码，同 CAN 设备。
@@ -1177,51 +1179,1049 @@ can_type
 	注：当设备类型为 PCIECANFD-100U、PCIECANFD-400U、MiniPCIeCANFD、M.2CANFD 时，模式mode 在正常模式(0)和只听模式(1)基础上，支持自发自收模式(2)和单次发送模式(3)。单次发送模式：CAN处于正常模式，但是发送失败时不会进行重发，此时发送超时无效。
 ```
 
+### 错误与状态类结构体
+
+#### ZCAN_CHANNEL_ERROR_INFO
+
+结构体详情见程序清单 3.3，包含总线错误信息，在函数 ZCAN_ReadChannelErrInfo 中被填充。
+
+程序清单 3.3 ZCAN_CHANNEL_ERROR_INFO 结构体成员
+
+```c++
+typedef struct tagZCAN_CHANNEL_ERROR_INFO {
+    UINT error_code;
+    BYTE passive_ErrData[3];
+    BYTE arLost_ErrData;
+} ZCAN_CHANNEL_ERROR_INFO;
+```
+
+成员
+
+```c++
+error_code
+错误码，详见附录 3 - 错误码定义。
+passive_ErrData
+当产生的错误中有消极错误时表示为消极错误的错误标识数据。
+arLost_ErrData
+当产生的错误中有仲裁丢失错误时表示为仲裁丢失错误的错误标识数据。
+```
+
+#### ZCAN_CHANNEL_STATUS
+
+结构体详情见程序清单 3.4，包含控制器状态信息，在函数 ZCAN_ReadChannelStatus 中被填充。
+
+程序清单 3.4 ZCAN_CHANNEL_STATUS 结构体成员
+
+```c++
+typedef struct tagZCAN_CHANNEL_STATUS {
+    BYTE errInterrupt;
+    BYTE regMode;
+    BYTE regStatus;
+    BYTE regALCapture;
+    BYTE regECCapture;
+    BYTE regEWLimit;
+    BYTE regRECounter;
+    BYTE regTECounter;
+    UINT Reserved;
+} ZCAN_CHANNEL_STATUS;
+```
+
+成员
+
+```c++
+errInterrupt
+中断记录，读操作会清除中断。
+regMode
+CAN 控制器模式寄存器值。
+regStatus
+CAN 控制器状态寄存器值。
+regALCapture
+CAN 控制器仲裁丢失寄存器值。
+regECCapture
+CAN 控制器错误寄存器值。
+regEWLimit
+CAN 控制器错误警告限制寄存器值。默认为 96。
+regRECounter
+CAN 控制器接收错误寄存器值。为 0-127 时，为错误主动状态；为 128-254 时，为错误被动状态；为 255 时，为总线关闭状态。
+regTECounter
+CAN 控制器发送错误寄存器值。为 0-127 时，为错误主动状态；为 128-254 时，为错误被动状态；为 255 时，为总线关闭状态。
+Reserved
+仅作保留，不设置。
+```
 
 
+### CAN / CANFD 帧结构
+
+#### can_frame
+
+结构体详情见程序清单 3.5，包含了 CAN 报文信息。
+
+程序清单 3.5 can_frame 结构体成员
+
+```c++
+struct can_frame {
+    canid_t can_id;   /* 32 bit CAN_ID + EFF/RTR/ERR flags */
+    __u8    can_dlc;  /* frame payload length in byte (0 .. CAN_MAX_DLEN) */
+    __u8    __pad;    /* padding */
+    __u8    __res0;   /* reserved / padding */
+    __u8    __res1;   /* reserved / padding */
+    __u8    data[CAN_MAX_DLEN];
+};
+```
+
+成员
+
+```c++
+can_id
+帧 ID，32 位，高 3 位属于标志位，标志位含义如下：
+第 31 位(最高位)代表扩展帧标志，=0 表示标准帧，=1 代表扩展帧，宏 IS_EFF 可获取该标志；
+第 30 位代表远程帧标志，=0 表示数据帧，=1 表示远程帧，宏 IS_RTR 可获取该标志；
+第 29 位代表错误帧标志，=0 表示 CAN 帧，=1 表示错误帧，目前只能设置为 0；
+其余位代表实际帧 ID 值，使用宏 MAKE_CAN_ID 构造 ID，使用宏 GET_ID 获取 ID。
+can_dlc
+数据长度（字节数）。
+__pad
+对齐填充，忽略。
+__res0
+仅作保留，不设置。
+__res1
+仅作保留，不设置。
+data
+报文数据，有效长度为 can_dlc。
+```
+
+#### canfd_frame
+
+结构体详情见程序清单 3.6，包含了 CANFD 报文信息。
+
+程序清单 3.6 canfd_frame 结构体成员
+
+```c++
+struct canfd_frame {
+    canid_t can_id;   /* 32 bit CAN_ID + EFF/RTR/ERR flags */
+    __u8    len;      /* frame payload length in byte */
+    __u8    flags;    /* additional flags for CAN FD, i.e error code */
+    __u8    __res0;   /* reserved / padding */
+    __u8    __res1;   /* reserved / padding */
+    __u8    data[CANFD_MAX_DLEN];
+};
+```
+
+成员
+
+```c++
+can_id
+帧 ID，同 can_frame 结构的 can_id 成员。
+len
+数据长度（字节数）。
+flags
+额外标志，例如使用 CANFD 加速（BRS），则设置为宏 CANFD_BRS。
+__res0
+仅作保留，不设置。
+__res1
+仅作保留，不设置。
+data
+报文数据，有效长度为 len。
+```
 
 
+### 发送数据结构
+
+#### ZCAN_Transmit_Data
+
+结构体详情见程序清单 3.7，包含发送的 CAN 报文信息，在函数 ZCAN_Transmit 中使用。
+
+程序清单 3.7 ZCAN_Transmit_Data 结构体成员
+
+```c++
+typedef struct tagZCAN_Transmit_Data {
+    can_frame frame;
+    UINT     transmit_type;
+} ZCAN_Transmit_Data;
+```
+
+成员
+
+```c++
+frame
+报文数据信息，详见 can_frame 结构说明。
+transmit_type
+发送方式，0=正常发送，1=单次发送，2=自发自收，3=单次自发自收。
+发送方式说明：
+- 正常发送：在 ID 仲裁丢失或发送出现错误时，CAN 控制器会自动重发，直到发送成功、发送超时或总线关闭。
+- 单次发送：仲裁丢失或发送错误时，CAN 控制器不会重发报文。适用于允许部分数据丢失、不能出现传输延迟的应用。
+- 自发自收：产生一次带自接收特性的正常发送，发送完成后可以从接收缓冲区中读到已发送的报文。
+- 单次自发自收：产生一次带自接收特性的单次发送，发送出错或仲裁丢失不会执行重发。
+```
+
+#### ZCAN_TransmitFD_Data
+
+结构体详情见程序清单 3.8，包含发送的 CANFD 报文信息，在函数 ZCAN_TransmitFD 中使用。
+
+程序清单 3.8 ZCAN_TransmitFD_Data 结构体成员
+
+```c++
+typedef struct tagZCAN_TransmitFD_Data {
+    canfd_frame frame;
+    UINT        transmit_type;
+} ZCAN_TransmitFD_Data;
+```
+
+成员
+
+```c++
+frame
+报文数据信息，详见 canfd_frame 结构说明。
+transmit_type
+发送方式，同 ZCAN_Transmit_Data 结构的 transmit_type 成员。
+```
 
 
+### 接收数据结构
+
+#### ZCAN_Receive_Data
+
+结构体详情见程序清单 3.9，包含接收的 CAN 报文信息，在函数 ZCAN_Receive 中使用。
+
+程序清单 3.9 ZCAN_Receive_Data 结构体成员
+
+```c++
+typedef struct tagZCAN_Receive_Data {
+    can_frame frame;
+    UINT64    timestamp;
+} ZCAN_Receive_Data;
+```
+
+成员
+
+```c++
+frame
+报文数据信息，详见 can_frame 结构说明。
+timestamp
+时间戳，单位微秒。对于本地设备，基于设备启动时间；对于云设备，基于 1970 年 1 月 1 日 0 时 0 分 0 秒。
+```
+
+#### ZCAN_ReceiveFD_Data
+
+结构体详情见程序清单 3.10，包含接收的 CANFD 报文信息，在函数 ZCAN_ReceiveFD 中使用。
+
+程序清单 3.10 ZCAN_ReceiveFD_Data 结构体成员
+
+```c++
+typedef struct tagZCAN_ReceiveFD_Data {
+    canfd_frame frame;
+    UINT64      timestamp;
+} ZCAN_ReceiveFD_Data;
+```
+
+成员
+
+```c++
+frame
+报文数据信息，详见 canfd_frame 结构说明。
+timestamp
+时间戳，单位微秒。
+```
 
 
+### 定时发送结构体
+
+#### ZCAN_AUTO_TRANSMIT_OBJ
+
+结构体详情见程序清单 3.11，包含定时发送 CAN 参数信息。
+
+程序清单 3.11 ZCAN_AUTO_TRANSMIT_OBJ 结构体成员
+
+```c++
+typedef struct tagZCAN_AUTO_TRANSMIT_OBJ {
+    USHORT enable;
+    USHORT index;
+    UINT    interval;  /* 定时发送时间，单位毫秒 */
+    ZCAN_Transmit_Data obj;
+} ZCAN_AUTO_TRANSMIT_OBJ, *PZCAN_AUTO_TRANSMIT_OBJ;
+```
+
+成员
+
+```c++
+enable
+使能本条报文，0=禁能，1=使能。
+index
+报文编号，从 0 开始，编号相同则使用最新的一条信息。
+interval
+发送周期，单位毫秒。
+obj
+发送的报文，详见 ZCAN_Transmit_Data 结构说明。
+```
+
+#### ZCANFD_AUTO_TRANSMIT_OBJ
+
+结构体详情见程序清单 3.12，包含定时发送 CANFD 参数信息。
+
+程序清单 3.12 ZCANFD_AUTO_TRANSMIT_OBJ 结构体成员
+
+```c++
+typedef struct tagZCANFD_AUTO_TRANSMIT_OBJ {
+    USHORT enable;
+    USHORT index;
+    UINT    interval;
+    ZCAN_TransmitFD_Data obj;
+} ZCANFD_AUTO_TRANSMIT_OBJ, *PZCANFD_AUTO_TRANSMIT_OBJ;
+```
+
+成员
+
+```c++
+enable
+使能本条报文，0=禁能，1=使能。
+index
+报文编号，从 0 开始，编号相同则使用最新的一条信息。
+interval
+发送周期，单位毫秒。
+obj
+发送的报文，详见 ZCAN_TransmitFD_Data 结构说明。
+```
+
+#### ZCAN_AUTO_TRANSMIT_OBJ_PARAM
+
+用于设置定时发送额外的参数，目前只支持 USBCANFD-X00U 系列设备。
+
+程序清单 3.13 ZCAN_AUTO_TRANSMIT_OBJ_PARAM 结构体成员
+
+```c++
+typedef struct tagZCAN_AUTO_TRANSMIT_OBJ_PARAM {
+    USHORT type;   /* 参数类型，目前类型只有 1：表示启动延时 */
+    USHORT index;  /* 定时发送帧的索引 */
+    UINT    value;  /* 参数数值，单位 ms */
+} ZCAN_AUTO_TRANSMIT_OBJ_PARAM, *PZCAN_AUTO_TRANSMIT_OBJ_PARAM;
+```
 
 
+### 云设备相关结构体
+
+#### ZCLOUD_DEVINFO
+
+结构体详情见程序清单 3.14，包含云设备的属性信息，在 ZCLOUD_GetUserData 中被填充。
+
+程序清单 3.14 ZCLOUD_DEVINFO 结构体成员
+
+```c++
+typedef struct tagZCLOUD_DEVINFO {
+    int    devIndex;
+    char   type[64];
+    char   id[64];
+    char   owner[64];
+    char   model[64];
+    char   fwVer[16];
+    char   hwVer[16];
+    char   serial[64];
+    int    status;
+    BYTE   bCanUploads[16];
+    BYTE   bGpsUpload;
+} ZCLOUD_DEVINFO;
+```
+
+成员
+
+```c++
+devIndex
+设备索引号，指该设备在该用户关联的所有设备中的索引序号。
+type
+设备类型字符串。
+id
+设备唯一识别号，字符串。
+owner
+设备的拥有者。
+model
+模块型号字符串。
+fwVer
+固件版本号字符串，如 V1.01。
+hwVer
+硬件版本号字符串，如 V1.01。
+serial
+设备序列号字符串。
+status
+设备状态，0：设备在线，1：设备离线。
+bCanUploads
+各通道数据云上送使能，0：不上送，1：上送。
+bGpsUpload
+设备 GPS 数据云上送使能，0：不上送，1：上送。
+```
+
+#### ZCLOUD_USER_DATA
+
+结构体详情见程序清单 3.15，包含用户信息，包含用户基本信息以及用户拥有的设备信息，通过 ZCLOUD_GetUserData 获取。
+
+程序清单 3.15 ZCLOUD_USER_DATA 结构体成员
+
+```c++
+typedef struct tagZCLOUD_USER_DATA {
+    char                username[64];
+    char                mobile[64];
+    ZCLOUD_DEVINFO      devices[ZCLOUD_MAX_DEVICES];
+    size_t              devCnt;
+} ZCLOUD_USER_DATA;
+```
+
+成员
+
+```c++
+username
+用户名字符串。
+mobile
+用户手机号。
+devices
+用户拥有的设备组，详见 ZCLOUD_DEVINFO 结构说明。
+devCnt
+设备个数。
+```
+
+#### ZCLOUD_GPS_FRAME
+
+结构体详情见程序清单 3.16，包含设备 GPS 数据，通过 ZCLOUD_ReceiveGPS 获取。
+
+程序清单 3.16 ZCLOUD_GPS_FRAME 结构体成员
+
+```c++
+typedef struct tagZCLOUD_GPS_FRAME {
+    float latitude;
+    float longitude;
+    float speed;
+    struct __gps_time {
+        USHORT year;
+        USHORT mon;
+        USHORT day;
+        USHORT hour;
+        USHORT min;
+        USHORT sec;
+    } tm;
+} ZCLOUD_GPS_FRAME;
+```
+
+成员
+
+```c++
+latitude
+纬度。
+longitude
+经度。
+speed
+速度。
+tm
+时间结构。
+```
 
 
+### 属性操作接口
+
+#### IProperty
+
+结构体详情见程序清单 3.17，用于获取/设置设备参数信息。
+
+程序清单 3.17 IProperty 结构体成员
+
+```c++
+typedef struct tagIProperty {
+    SetValueFunc     SetValue;
+    GetValueFunc     GetValue;
+    GetPropertysFunc GetPropertys;
+} IProperty;
+```
+
+成员
+
+```c++
+SetValue
+设置设备属性值，函数指针，详见 3.3 小节。
+GetValue
+获取属性值，函数指针。
+GetPropertys
+用于返回设备包含的所有属性，函数指针。
+```
 
 
+### LIN 相关结构体
+
+#### ZCAN_LIN_MSG
+
+结构体详情见程序清单 3.19，该结构体定义了 LIN 消息的结构，在设置从站响应信息和接收 LIN 数据接口中使用此结构表示单帧 LIN 消息。
+
+程序清单 3.19 ZCAN_LIN_MSG 结构体成员
+
+```c++
+typedef struct _VCI_LIN_MSG {
+    BYTE chnl;
+    BYTE dataType;
+    union {
+        ZCANLINData      zcanLINData;
+        ZCANLINErrData    zcanLINErrData;
+        BYTE             raw[46];
+    } data;
+} ZCAN_LIN_MSG, *PZCAN_LIN_MSG;
+```
+
+成员
+
+```c++
+chnl
+数据通道。
+dataType
+数据类型，0-LIN 数据，1-LIN 错误数据。
+data
+实际数据，联合体，有效成员根据 dataType 字段而定。
+```
+
+#### ZCAN_LIN_INIT_CONFIG
+
+结构体详情见程序清单 3.20，该结构体表示配置 LIN 的信息，在函数 ZCAN_InitLIN 函数中调用。用于设置设备 LIN 的工作模式、波特率，是否使用增强校验等信息。
+
+程序清单 3.20 ZCAN_LIN_INIT_CONFIG 结构体成员
+
+```c++
+typedef struct _VCI_LIN_INIT_CONFIG {
+    BYTE   linMode;
+    BYTE   chkSumMode;
+    USHORT reserved;
+    UINT   linBaud;
+} ZCAN_LIN_INIT_CONFIG, *PZCAN_LIN_INIT_CONFIG;
+```
+
+成员
+
+```c++
+linMode
+LIN 工作模式，从站为 0，主站为 1。
+chkSumMode
+校验方式，1-经典校验，2-增强校验，3-自动（即经典校验跟增强校验都会进行轮询）。
+reserved
+保留位。
+linBaud
+LIN 波特率，取值 1000~20000。
+```
+
+#### ZCANCANFDData
+
+结构体详情见程序清单 3.21，该结构体表示 CAN/CANFD 帧结构，可以表示发送接收 CAN/CANFD 帧，目前仅作为 ZCANDataObj 结构的成员使用。
+
+程序清单 3.21 ZCANCANFDData 结构体成员
+
+```c++
+typedef struct tagZCANCANFDData {
+    UINT64 timeStamp;
+    union {
+        struct {
+            UINT frameType      : 2;
+            UINT txDelay        : 2;
+            UINT transmitType   : 4;
+            UINT txEchoRequest  : 1;
+            UINT txEchoed       : 1;
+            UINT reserved       : 22;
+        } unionVal;
+        UINT rawVal;
+    } flag;
+    BYTE       extraData[4];
+    canfd_frame frame;
+} ZCANCANFDData;
+```
+
+成员
+
+```c++
+timeStamp
+时间戳。作为接收帧时，时间戳单位微秒(us)。正常发送时，timeStamp 字段无意义。队列延迟发送数据时，timeStamp 字段存放发送当前帧后设备等待的时间，时间单位取决于 flag.unionVal.txDelay。
+flag
+flag 字段表示 CAN/CANFD 帧的标记信息，长度 4 字节。
+- frameType：帧类型，0=CAN 帧，1=CANFD 帧
+- txDelay：队列发送延时，0=不启用延时，1=启用延时（单位 1ms），2=启用延时（单位 0.1ms）
+- transmitType：发送类型，0=正常发送，1=单次发送，2=自发自收，3=单次自发自收
+- txEchoRequest：发送回显请求，0=不需要设备回显发送帧，1=请求设备回显发送帧
+- txEchoed：报文是否是发送回显报文，0=正常总线接收到的报文，1=本设备发送回显报文
+extraData
+帧附加数据，暂未使用。
+frame
+CAN/CANFD 帧数据，参考 canfd_frame 结构体。
+```
+
+#### ZCANErrorData
+
+结构体详情见程序清单 3.22，该结构体表示错误信息结构，可以表示总线错误、控制器错误、设备端错误等错误信息，目前仅作为 ZCANDataObj 结构的成员使用。
+
+程序清单 3.22 ZCANErrorData 结构体成员
+
+```c++
+typedef struct tagZCANErrorData {
+    UINT64 timeStamp;
+    BYTE   errType;
+    BYTE   errSubType;
+    BYTE   nodeState;
+    BYTE   rxErrCount;
+    BYTE   txErrCount;
+    BYTE   errData;
+    BYTE   reserved[2];
+} ZCANErrorData;
+```
+
+成员
+
+```c++
+timeStamp
+时间戳，表示错误产生的时间，单位微秒(us)。
+errType
+错误类型：0=未知错误，1=总线错误，2=控制器错误，3=终端设备错误。
+errSubType
+错误子类型，根据 errType 不同表示不同的含义。
+nodeState
+节点状态，显示当前节点的总线状态（errType=1 时有效）：1=总线积极，2=总线告警，3=总线消极，4=总线关闭。
+rxErrCount
+接收错误计数（errType=1 时有效）。
+txErrCount
+发送错误计数（errType=1 时有效）。
+errData
+错误数据（errType=3 且 errSubType=3 时有效，存放定时发送帧的索引）。
+reserved
+保留字段，未使用。
+```
+
+#### ZCANGPSData
+
+结构体详情见程序清单 3.23，该结构体表示 GPS 数据，目前仅作为 ZCANDataObj 结构的成员使用。
+
+程序清单 3.23 ZCANGPSData 结构体成员
+
+```c++
+typedef struct tagZCANGPSData {
+    struct {
+        USHORT year;
+        USHORT mon;
+        USHORT day;
+        USHORT hour;
+        USHORT min;
+        USHORT sec;
+        USHORT milsec;
+    } time;
+    union {
+        struct {
+            USHORT timeValid       : 1;
+            USHORT latlongValid    : 1;
+            USHORT altitudeValid   : 1;
+            USHORT speedValid      : 1;
+            USHORT courseAngleValid: 1;
+            USHORT reserved        : 11;
+        } unionVal;
+        USHORT rawVal;
+    } flag;
+    double latitude;
+    double longitude;
+    double altitude;
+    double speed;
+    double courseAngle;
+} ZCANGPSData;
+```
+
+成员
+
+```c++
+time
+UTC 时间，表示定位数据的时间。
+flag
+数据标志位，用于标识定位数据的有效性。
+latitude
+纬度，正数表示北纬，负数表示南纬。
+longitude
+经度，正数表示东经，负数表示西经。
+altitude
+海拔，单位：米。
+speed
+速度，单位：km/h。
+courseAngle
+航向角。
+```
+
+#### ZCANLINData
+
+结构体详情见程序清单 3.24，该结构体表示 LIN 数据结构，目前仅作为 ZCANDataObj 结构的成员使用。
+
+程序清单 3.24 ZCANLINData 结构体成员
+
+```c++
+typedef struct tagZCANLINData {
+    union {
+        struct {
+            BYTE ID      : 6;
+            BYTE Parity  : 2;
+        } unionVal;
+        BYTE rawVal;
+    } PID;
+    struct {
+        UINT64 timeStamp;
+        BYTE   dataLen;
+        BYTE   dir;
+        BYTE   chkSum;
+        BYTE   reserved[13];
+        BYTE   data[8];
+    } RxData;
+    BYTE reserved[3];
+} ZCANLINData;
+```
+
+成员
+
+```c++
+PID
+受保护的帧 ID。PID 包含帧 ID(PID.unionVal.ID)和帧 ID 校验(PID.unionVal.Parity)两个部分。
+RxData
+数据部分，仅接收数据时有效。包含时间戳、数据长度、传输方向、校验和、数据等字段。
+reserved
+保留。
+```
+
+#### ZCANLINErrData
+
+结构体详情见程序清单 3.25，该结构体表示 LIN 错误数据结构，目前仅作为 ZCANDataObj 结构的成员使用。
+
+程序清单 3.25 ZCANLINErrData 结构体成员
+
+```c++
+typedef struct tagZCANLINErrData {
+    UINT64 timeStamp;
+    union {
+        struct {
+            BYTE ID     : 6;
+            BYTE Parity : 2;
+        } unionVal;
+        BYTE rawVal;
+    } PID;
+    BYTE dataLen;
+    BYTE data[8];
+    union {
+        struct {
+            USHORT errStage  : 4;
+            USHORT errReason : 4;
+            USHORT reserved  : 8;
+        } unionVal;
+        USHORT unionErrData;
+    } errData;
+    BYTE dir;
+    BYTE chkSum;
+    BYTE reserved[10];
+} ZCANLINErrData;
+```
+
+成员
+
+```c++
+timeStamp
+时间戳，单位微秒(us)，表示数据帧接收时间。
+PID
+受保护的帧 ID。
+dataLen
+数据长度。
+data
+数据。
+errData
+错误标志。errStage 表示错误阶段；errReason 表示错误原因。
+dir
+传输方向。
+chkSum
+数据校验。
+reserved
+保留。
+```
+
+#### ZCAN_LIN_SUBSCIBE_CFG
+
+结构体详情见程序清单 3.26，该结构体表示 LIN 订阅数据结构。
+
+程序清单 3.26 ZCAN_LIN_SUBSCIBE_CFG 结构体成员
+
+```c++
+typedef struct _VCI_LIN_SUBSCIBE_CFG {
+    BYTE ID;
+    BYTE dataLen;
+    BYTE chkSumMode;
+    BYTE reserved[5];
+} ZCAN_LIN_SUBSCIBE_CFG;
+```
+
+成员
+
+```c++
+ID
+受保护的 ID（ID 取值范围为 0-63）。
+dataLen
+数据长度，范围为 1-8，当为 255（0xFF）则表示设备自动识别报文长度。
+chkSumMode
+校验方式，0=默认（启动时配置），1=经典校验，2=增强校验，3=自动。
+reserved
+保留。
+```
+
+#### ZCAN_LIN_PUBLISH_CFG
+
+结构体详情见程序清单 3.27，该结构体表示 LIN 发布数据结构。
+
+程序清单 3.27 ZCAN_LIN_PUBLISH_CFG 结构体成员
+
+```c++
+typedef struct _VCI_LIN_PUBLISH_CFG {
+    BYTE ID;
+    BYTE dataLen;
+    BYTE data[8];
+    BYTE chkSumMode;
+    BYTE reserved[5];
+} ZCAN_LIN_PUBLISH_CFG;
+```
+
+成员
+
+```c++
+ID
+受保护的 ID（ID 取值范围为 0-63）。
+dataLen
+数据长度，范围为 1-8。
+data
+数据。
+chkSumMode
+校验方式，0=默认（启动时配置），1=经典校验，2=增强校验。
+reserved
+保留。
+```
 
 
+### 合并接收数据结构
+
+#### ZCANDataObj
+
+结构体详情见程序清单 3.28，该结构作为合并接收使用的各种数据的载体，支持 CAN、CANFD、LIN、GPS、错误数据等各种不同类型的数据。
+
+程序清单 3.28 ZCANDataObj 结构体成员
+
+```c++
+typedef struct tagZCANDataObj {
+    BYTE dataType;
+    BYTE chnl;
+    union {
+        struct {
+            USHORT reserved : 16;
+        } unionVal;
+        USHORT rawVal;
+    } flag;
+    BYTE extraData[4];
+    union {
+        ZCANCANFDData  zcanCANFDData;
+        ZCANErrorData  zcanErrData;
+        ZCANGPSData    zcanGPSData;
+        ZCANLINData    zcanLINData;
+        ZCANLINErrData zcanLINErrData;
+        BYTE           raw[92];
+    } data;
+} ZCANDataObj;
+```
+
+成员
+
+```c++
+dataType
+数据类型：1=CAN/CANFD 数据，2=错误数据，3=GPS 数据，4=LIN 数据，5=总线利用率数据，6=LIN 错误数据。
+chnl
+数据通道。
+flag
+数据标志，暂未使用。
+extraData
+额外数据，暂未使用。
+data
+实际数据，联合体，根据 dataType 决定有效成员。
+```
 
 
+### 动态配置结构体
+
+#### ZCAN_DYNAMIC_CONFIG_DATA
+
+结构体详情见程序清单 3.29，该结构体表示动态配置结构。
+
+程序清单 3.29 ZCAN_DYNAMIC_CONFIG_DATA 结构体成员
+
+```c++
+typedef struct tagZCAN_DYNAMIC_CONFIG_DATA {
+    char key[64];
+    char value[64];
+} ZCAN_DYNAMIC_CONFIG_DATA;
+```
+
+成员
+
+```c++
+key
+动态配置的 key。
+value
+下发动态配置项的数据。
+```
 
 
+### UDS 相关结构体
 
+#### ZCAN_UDS_REQUEST
 
+结构体详情见程序清单 3.30，该结构体表示 CAN UDS 请求数据。
 
+程序清单 3.30 ZCAN_UDS_REQUEST 结构体成员
 
+```c++
+typedef struct _ZCAN_UDS_REQUEST {
+    UINT                   req_id;
+    BYTE                   channel;
+    ZCAN_UDS_FRAME_TYPE    frame_type;
+    BYTE                   reserved0[2];
+    UINT                   src_addr;
+    UINT                   dst_addr;
+    BYTE                   suppress_response;
+    BYTE                   sid;
+    BYTE                   reserved1[6];
+    struct {
+        UINT                   timeout;
+        UINT                   enhanced_timeout;
+        BYTE                   check_any_negative_response : 1;
+        BYTE                   wait_if_suppress_response    : 1;
+        BYTE                   flag                         : 6;
+        BYTE                   reserved0[7];
+    } session_param;
+    struct {
+        ZCAN_UDS_TRANS_VER  version;
+        BYTE                 max_data_len;
+        BYTE                 local_st_min;
+        BYTE                 block_size;
+        BYTE                 fill_byte;
+        BYTE                 ext_frame;
+        BYTE                 is_modify_ecu_st_min;
+        BYTE                 remote_st_min;
+        UINT                 fc_timeout;
+        BYTE                 reserved0[4];
+    } trans_param;
+    BYTE                  *data;
+    UINT                   data_len;
+    UINT                   reserved2;
+} ZCAN_UDS_REQUEST;
+```
 
+#### ZLIN_UDS_REQUEST
 
+结构体详情见程序清单 3.31，该结构体表示 LIN UDS 请求数据。
 
+程序清单 3.31 ZLIN_UDS_REQUEST 结构体成员
 
+```c++
+typedef struct _ZLIN_UDS_REQUEST {
+    UINT  req_id;
+    BYTE  channel;
+    BYTE  suppress_response;
+    BYTE  sid;
+    BYTE  Nad;
+    BYTE  reserved1[8];
+    struct {
+        UINT p2_timeout;
+        UINT enhanced_timeout;
+        BYTE check_any_negative_response : 1;
+        BYTE wait_if_suppress_response    : 1;
+        BYTE flag                         : 6;
+        BYTE reserved0[7];
+    } session_param;
+    BYTE *data;
+    UINT  data_len;
+    UINT  reserved2;
+} ZLIN_UDS_REQUEST;
+```
 
+#### ZCAN_UDS_RESPONSE
 
+结构体详情见程序清单 3.32，该结构体表示 UDS 响应数据。
 
+程序清单 3.32 ZCAN_UDS_RESPONSE 结构体成员
 
+```c++
+typedef struct _ZCAN_UDS_RESPONSE {
+    union {
+        struct {
+            BYTE is_positive : 1;
+            BYTE reserved    : 7;
+        } unionVal;
+        BYTE rawVal;
+    } flag;
+    BYTE  sid;
+    BYTE  nrc;
+    BYTE  data_len;
+    BYTE *data;
+} ZCAN_UDS_RESPONSE;
+```
 
+#### ZCAN_UDS_CTRL_REQ
 
+结构体详情见程序清单 3.33，该结构体表示 UDS 控制请求。
 
+程序清单 3.33 ZCAN_UDS_CTRL_REQ 结构体成员
 
+```c++
+typedef struct _ZCAN_UDS_CTRL_REQ {
+    UINT req_id;
+    ZCAN_UDS_CTRL_CMD cmd;
+} ZCAN_UDS_CTRL_REQ;
+```
 
+#### ZCAN_UDS_CTRL_RESP
 
+结构体详情见程序清单 3.34，该结构体表示 UDS 控制响应数据。
 
+程序清单 3.34 ZCAN_UDS_CTRL_RESP 结构体成员
 
+```c++
+typedef struct _ZCAN_UDS_CTRL_RESP {
+    ZCAN_UDS_CTRL_CMD cmd;
+    ZCAN_RET_STATUS    ret;
+} ZCAN_UDS_CTRL_RESP;
+```
 
+#### ZCANCANFDUdsData
 
+结构体详情见程序清单 3.35，该结构体表示 CAN/CAN FD UDS 数据。
 
+程序清单 3.35 ZCANCANFDUdsData 结构体成员
 
+```c++
+typedef struct tagZCANCANFDUdsData {
+    ZCANUdsRequestDataObj req;
+    ZCAN_UDS_RESPONSE    resp;
+} ZCANCANFDUdsData;
+```
 
+#### ZCANLINUdsData
 
+结构体详情见程序清单 3.36，该结构体表示 LIN UDS 数据。
 
+程序清单 3.36 ZCANLINUdsData 结构体成员
+
+```c++
+typedef struct tagZCANLINUdsData {
+    ZCANUdsRequestDataObj req;
+    ZCAN_UDS_RESPONSE    resp;
+} ZCANLINUdsData;
+```
+
+#### ZCANUdsRequestDataObj
+
+结构体详情见程序清单 3.37，该结构体表示 UDS 数据结构，支持 CAN/LIN 等 UDS 不同传输层。
+
+程序清单 3.37 ZCANUdsRequestDataObj 结构体成员
+
+```c++
+typedef struct tagZCANUdsRequestDataObj {
+    ZCAN_UDS_DATA_DEF dataType;
+    union {
+        ZCAN_UDS_REQUEST   canUdsReq;
+        ZLIN_UDS_REQUEST   linUdsReq;
+        ZCAN_UDS_RESPONSE  resp;
+    } data;
+} ZCANUdsRequestDataObj;
+```
+
+---
 
