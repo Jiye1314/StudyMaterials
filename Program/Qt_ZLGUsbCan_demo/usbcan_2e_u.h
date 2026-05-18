@@ -18,21 +18,21 @@ public:
 signals:
 
 public:
-    bool openDevice();
-    bool closeDevice();
-    bool timerSend();
-    bool send();
-    void get_can_frame(ZCAN_Transmit_Data& can_data, canid_t id);
-    void thread_task(CHANNEL_HANDLE handle);
+//    bool openDevice();
+//    bool closeDevice();
+//    bool timerSend();
+//    bool send();
+//    void get_can_frame(ZCAN_Transmit_Data& can_data, canid_t id);
+//    void thread_task(CHANNEL_HANDLE handle);
 
 private:
-    //保存设备句柄
-    DEVICE_HANDLE deviceKey;
-    //保存通道句柄
-    CHANNEL_HANDLE channelKey[2];
+//    //保存设备句柄
+//    DEVICE_HANDLE deviceKey;
+//    //保存通道句柄
+//    CHANNEL_HANDLE channelKey[2];
 
-    //线程指针数组
-    QVector<QThread*> thd_handle;
+//    //线程指针数组
+//    QVector<QThread*> thd_handle;
 
 };
 

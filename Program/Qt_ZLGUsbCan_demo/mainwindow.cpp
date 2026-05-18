@@ -25,6 +25,7 @@ void MainWindow::on_btn_openDev_clicked()
     {
         btnSetEnableTrue();
     }
+    ui->btn_openDev->setEnabled(false);
 }
 
 
@@ -32,10 +33,10 @@ void MainWindow::on_btn_send_clicked()
 {
     if(usbC_fd_200u->timerSend_fd_200u())
     {
-        ui->btn_send->setText("关闭");
+        ui->btn_send->setText("关闭定时");
     }else
     {
-        ui->btn_send->setText("开启");
+        ui->btn_send->setText("开启定时");
     }
 }
 
@@ -46,7 +47,7 @@ void MainWindow::on_btn_closeDev_clicked()
     {
         btnSetEnableFalse();
     }
-
+     ui->btn_openDev->setEnabled(true);
 }
 
 void MainWindow::btnSetEnableTrue()
