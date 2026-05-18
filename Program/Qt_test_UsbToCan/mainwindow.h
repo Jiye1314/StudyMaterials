@@ -38,8 +38,6 @@ private:
     // 静态线程函数 CAN
     static void thread_task(CHANNEL_HANDLE channelKey);
     static void thread_taskFD(CHANNEL_HANDLE handle);
-    // 线程指针数组
-    QVector<QThread*> thd_handle;
     //
     void sleepMs(int msec);
 
@@ -54,5 +52,8 @@ private:
 
     //创建线程
     QThread *canThread;
+
+    // 线程指针数组
+    QVector<QThread*> thd_handle;
 };
 #endif // MAINWINDOW_H

@@ -28,19 +28,19 @@ bool USBCAN_FD_200U::openDevice_fd_200u()
     //保存设备句柄
     deviceKey = retOpenDev;
 
-    //读取信息
-    ZCAN_DEVICE_INFO zc_DevInfo;
-    UINT retGetDevInf = ZCAN_GetDeviceInf(deviceKey,&zc_DevInfo);
+//    //读取信息
+//    ZCAN_DEVICE_INFO zc_DevInfo;
+//    UINT retGetDevInf = ZCAN_GetDeviceInf(deviceKey,&zc_DevInfo);
 
-    if(retGetDevInf == STATUS_ERR)
-    {
-        qDebug()<<"读取设备信息失败";
-        return false;
-    }else{
-        qDebug()<<"读取设备信息成功";
-    }
-    qDebug()<<"硬件版本："<<zc_DevInfo.hw_Version;
-    qDebug()<<"固件版本："<<zc_DevInfo.fw_Version;
+//    if(retGetDevInf == STATUS_ERR)
+//    {
+//        qDebug()<<"读取设备信息失败";
+//        return false;
+//    }else{
+//        qDebug()<<"读取设备信息成功";
+//    }
+//    qDebug()<<"硬件版本："<<zc_DevInfo.hw_Version;
+//    qDebug()<<"固件版本："<<zc_DevInfo.fw_Version;
 
 
     for (int i=0;i<2;i++)
@@ -53,7 +53,7 @@ bool USBCAN_FD_200U::openDevice_fd_200u()
 
         // 设置仲裁域波特率（CANFD 必需）
         sprintf(path, "%d/canfd_abit_baud_rate", i);
-        if (ZCAN_SetValue(deviceKey, path, "500000") == STATUS_ERR) {
+        if (!ZCAN_SetValue(deviceKey, path, "500000")) {
             qDebug() << "设置仲裁域波特率失败 " << i;
             closeDevice_fd_200u();
             break;
@@ -63,7 +63,7 @@ bool USBCAN_FD_200U::openDevice_fd_200u()
 
         // 设置数据域波特率（CANFD 必需）
         sprintf(path, "%d/canfd_dbit_baud_rate", i);
-        if (ZCAN_SetValue(deviceKey, path, "500000") == STATUS_ERR) {
+        if (!ZCAN_SetValue(deviceKey, path, "500000")) {
             qDebug() << "设置数据域波特率失败 " << i;
             closeDevice_fd_200u();
             break;
@@ -71,23 +71,16 @@ bool USBCAN_FD_200U::openDevice_fd_200u()
             qDebug() << "设置数据域波特率成功 " << i;
         }
 
-        sprintf(path, "%d/initenal_resistance", i);
-        UINT retRes = ZCAN_SetValue(deviceKey, path, "1");
-        if (retRes != STATUS_OK)
-        {
-            qDebug()<< "使能终端电阻失败 " << i << " （部分设备不支持软件控制，可忽略）";
-        }
-
-        //初始化CAN通道
+        //初始化通道
         ZCAN_CHANNEL_INIT_CONFIG channelConfig;
         memset(&channelConfig, 0, sizeof(channelConfig));
 
-        channelConfig.can_type = TYPE_CANFD;  // 正确的CANFD模式
+        channelConfig.can_type = TYPE_CANFD;  // CANFD模式 TYPE_CANFD 或 1
         channelConfig.can.mode = 0;
 
-        CHANNEL_HANDLE ch = ZCAN_InitCAN(deviceKey,i, &channelConfig);
-
-        if (ch == INVALID_CHANNEL_HANDLE)
+        //初始化
+        channelKey[i] = ZCAN_InitCAN(deviceKey,i, &channelConfig);
+        if (channelKey[i] == INVALID_CHANNEL_HANDLE)
         {
             qDebug()<< "初始化通道失败 "<<i;
             closeDevice_fd_200u();
@@ -96,7 +89,13 @@ bool USBCAN_FD_200U::openDevice_fd_200u()
             qDebug()<< "初始化通道成功 "<<i;
         }
 
-        channelKey[i] = ch;
+        // 设置终端电阻
+        sprintf(path, "%d/initenal_resistance", i);
+        UINT retRes = ZCAN_SetValue(deviceKey, path, "1");
+        if (retRes != STATUS_OK)
+        {
+            qDebug()<< "使能终端电阻失败 " << i;
+        }
 
         // 设置发送超时
         sprintf_s(path, "%d/tx_timeout", i);
@@ -107,7 +106,7 @@ bool USBCAN_FD_200U::openDevice_fd_200u()
 //        ZCAN_SetValue(deviceKey, path, "1"); // 1 = 环回模式
 
         // 启动 CAN 通道
-        if (!ZCAN_StartCAN(ch))
+        if (!ZCAN_StartCAN(channelKey[i]))
         {
             qDebug()<<"启动 CAN 通道失败 "<<i;
             closeDevice_fd_200u();
@@ -118,7 +117,7 @@ bool USBCAN_FD_200U::openDevice_fd_200u()
 
         // 启动接收线程
         QThread *t = QThread::create([=]() {
-            thread_taskFD_fd_200u(ch);
+            thread_taskFD_fd_200u(channelKey[i]);
         });
         thd_handle.append(t);
         t->start();
@@ -188,12 +187,13 @@ bool USBCAN_FD_200U::timerSend_fd_200u()
     return open_timer;
 }
 
+//手动发送
 void USBCAN_FD_200U::Send_fd_200u()
 {
     //发送测试帧
     static int count = 1;
-    ZCAN_TransmitFD_Data trans_datafd[2] = {};
-    for (int i = 0; i < 2; ++i)
+    ZCAN_TransmitFD_Data trans_datafd[10] = {};
+    for (int i = 0; i < 10; ++i)
     {
         get_canfd_frame_fd_200u(trans_datafd[i], i);
     }
@@ -279,5 +279,7 @@ void USBCAN_FD_200U::thread_taskFD_fd_200u(CHANNEL_HANDLE handle)
 
 void USBCAN_FD_200U::sleepMs_fd_200u(int msec)
 {
-
+    QEventLoop loop;
+    QTimer::singleShot(msec, &loop, &QEventLoop::quit);
+    loop.exec();
 }

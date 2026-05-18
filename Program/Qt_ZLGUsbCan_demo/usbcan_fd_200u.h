@@ -7,6 +7,7 @@
 #include <QEventLoop>
 #include <QThread>
 #include <QDateTime>
+#include <QTimer>
 
 class USBCAN_FD_200U : public QObject
 {
@@ -25,9 +26,9 @@ public:
     bool closeDevice_fd_200u();
     bool timerSend_fd_200u();
     void Send_fd_200u();
-    //接收函数
+    // 构造报文函数
     void get_canfd_frame_fd_200u(ZCAN_TransmitFD_Data& canfd_data, canid_t id);
-    // 静态线程函数 CAN
+    // 接收线程函数
     static void thread_taskFD_fd_200u(CHANNEL_HANDLE handle);
     //
     void sleepMs_fd_200u(int msec);

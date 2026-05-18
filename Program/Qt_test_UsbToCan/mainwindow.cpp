@@ -92,8 +92,9 @@ void MainWindow::OpenDevice()
     {
         // 设置 CANFD 标准为 ISO
         sprintf_s(path, "%d/canfd_standard", i);
-        if (0 == ZCAN_SetValue(deviceKey, path, "0")) {
-            qDebug()<< "set canfd standard ok";
+        if (!ZCAN_SetValue(deviceKey, path, "0"))
+        {
+            qDebug()<< "set canfd 标准为 ISO false";
         }
 
         // 设置仲裁域波特率（CANFD 必需）
