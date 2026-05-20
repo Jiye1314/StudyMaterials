@@ -1,0 +1,65 @@
+VERSION "HIPBNYYYYYYYYYYYYYYYYYYYYYYYYYYYNNNNNNNNNN/4/%%%/4/'%**4NNN///"
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: CPU_H
+
+
+BO_ 1922 TestBench_speedReq: 8 Vector__XXX
+ SG_ fixData : 0|24@1+ (1,0) [5323524|5323524] ""  CPU_H
+ SG_ speedReq : 24|16@1+ (1,0) [0|10000] "rpm"  CPU_H
+
+
+
+BA_DEF_ BU_  "NodeLayerModules" INT 0 200;
+BA_DEF_ BU_  "NmStationAddress" INT 0 200;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_  "Manufacturer" ENUM  "invalid","invalid","invalid","invalid","invalid","invalid","LINDE","invalid";
+BA_DEF_  "NWM-Typ" ENUM  "invalid","invalid","invalid","invalid","invalid","invalid","invalid","invalid","invalid","invalid","LINDENM";
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 180000;
+BA_DEF_ BO_  "DiagRequest" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagResponse" ENUM  "No","Yes";
+BA_DEF_DEF_  "NodeLayerModules" 0;
+BA_DEF_DEF_  "NmStationAddress" 0;
+BA_DEF_DEF_  "BusType" "";
+BA_DEF_DEF_  "Manufacturer" "LINDE";
+BA_DEF_DEF_  "NWM-Typ" "LINDENM";
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "DiagRequest" "No";
+BA_DEF_DEF_  "DiagResponse" "No";
+BA_ "BusType" "CAN";
+BA_ "Manufacturer" 6;
+BA_ "NWM-Typ" 10;
+BA_ "NmStationAddress" BU_ CPU_H 2;
+

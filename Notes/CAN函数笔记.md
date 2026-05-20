@@ -512,6 +512,8 @@ STATUS_OK 表示设置成功，STATUS_ERR 表示设置失败。
 | 滤波掩码（标准帧）     | `n/filter_std_mask`          | `"0x7FF"`      | 掩码中为1的位必须匹配，0表示不关心；0x7FF=11位全匹配     |
 | 设置滤波 ID（扩展帧）  | `n/filter_ext_id`            | `"0x123"`      | 只接收 ID=0x123 的扩展帧                                |
 | 滤波掩码（扩展帧）     | `n/filter_ext_mask`          | `"0x1FFFFFFF"` | 掩码中为1的位必须匹配，0表示不关心；0x1FFFFFFF=29位全匹配 |
+| 定时发送（CAN报文） | `n/auto_send` | `"(const char*)&transmitObj"` |  |
+| 定时发送（CANFD报文） | `n/auto_send_canfd` | `"(const char*)&transmitObj"` |  |
 | 自动重发（错误帧重发） | `n/auto_retry`              | `"1"`          | 1 = 开启，0 = 关闭                                      |
 | 发送超时时间           | `n/send_timeout`            | `"1000"`       | 单位 ms，超时重发                                       |
 | 接收缓存大小           | `n/rx_buf_size`             | `"1024"`       | 接收队列长度                                            |

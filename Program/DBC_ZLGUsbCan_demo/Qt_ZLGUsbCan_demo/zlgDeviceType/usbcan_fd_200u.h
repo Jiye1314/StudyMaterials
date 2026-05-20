@@ -8,6 +8,7 @@
 #include <QThread>
 #include <QDateTime>
 #include <QTimer>
+#include "zdbc_x86/zdbc.h"
 
 class USBCAN_FD_200U : public QObject
 {
@@ -24,14 +25,23 @@ public slots:
 public:
     bool openDevice_fd_200u();
     bool closeDevice_fd_200u();
-    bool timerSend_fd_200u();
     void Send_fd_200u();
-    // 构造报文函数
-    void get_canfd_frame_fd_200u(ZCAN_TransmitFD_Data& canfd_data, canid_t id);
-    // 接收线程函数
-    static void thread_taskFD_fd_200u(CHANNEL_HANDLE handle);
-    //
+    // 接收 CANFD 线程函数
+    static void thread_task_fd_200u(CHANNEL_HANDLE handle);
     void sleepMs_fd_200u(int msec);
+    //===================================================================================
+    // 构造各报文函数
+    void buildSyncFrame(ZCAN_Transmit_Data &can);
+    void buildTimeStampFrame(ZCAN_Transmit_Data &can);
+    void buildTractionHBFrame(ZCAN_Transmit_Data &can);
+    void buildLiftHBFrame(ZCAN_Transmit_Data &can);
+    void buildPowerTracLHBFrame(ZCAN_Transmit_Data &can);
+    void buildModuleCtrlFrame(ZCAN_Transmit_Data &can);
+    void buildTractionPDO4Frame(ZCAN_Transmit_Data &can);
+    // 定时发送CAN报文函数
+    bool timerSend_can();
+    // 接收 CAN 线程函数
+    void thread_task_can(CHANNEL_HANDLE handle);
 private:
     //保存设备句柄
     DEVICE_HANDLE deviceKey;

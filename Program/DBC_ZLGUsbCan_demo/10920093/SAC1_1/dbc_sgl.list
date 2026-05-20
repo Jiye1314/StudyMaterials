@@ -1,0 +1,150 @@
+{
+    "dbcFile": "SAC1.2_Motor.dbc",
+    "j1939DA": "FF",
+    "j1939SA": "00",
+    "msgList": [
+        {
+            "canType": 0,
+            "e2eDataId": "0",
+            "e2eEnable": false,
+            "msgID": 386,
+            "msgName": "Lift_PDO1_can1",
+            "sendCnt": 999999999,
+            "sendInterval": 10,
+            "signals": [
+                {
+                    "changeParams": [
+                    ],
+                    "changeType": 0,
+                    "name": "L_torqueSet1",
+                    "rawVal": 0
+                },
+                {
+                    "changeParams": [
+                    ],
+                    "changeType": 0,
+                    "name": "L_speedSet1",
+                    "rawVal": 0
+                },
+                {
+                    "changeParams": [
+                    ],
+                    "changeType": 0,
+                    "name": "L_IO_state1",
+                    "rawVal": 0
+                },
+                {
+                    "changeParams": [
+                    ],
+                    "changeType": 0,
+                    "name": "L_MTemp1",
+                    "rawVal": 40
+                },
+                {
+                    "changeParams": [
+                    ],
+                    "changeType": 0,
+                    "name": "L_enable1",
+                    "rawVal": 2
+                },
+                {
+                    "changeParams": [
+                    ],
+                    "changeType": 0,
+                    "name": "L_CMain1",
+                    "rawVal": 1
+                },
+                {
+                    "changeParams": [
+                    ],
+                    "changeType": 0,
+                    "name": "L_PWMenable1",
+                    "rawVal": 0
+                },
+                {
+                    "changeParams": [
+                        1,
+                        0,
+                        15
+                    ],
+                    "changeType": 1,
+                    "name": "L_MessCount1",
+                    "rawVal": 0
+                }
+            ]
+        },
+        {
+            "canType": 0,
+            "e2eDataId": "0",
+            "e2eEnable": false,
+            "msgID": 129,
+            "msgName": "Traction_PDOF",
+            "sendCnt": 999999999,
+            "sendInterval": 2,
+            "signals": [
+                {
+                    "changeParams": [
+                    ],
+                    "changeType": 0,
+                    "name": "T_torqueSetF_Lft",
+                    "rawVal": 0
+                },
+                {
+                    "changeParams": [
+                    ],
+                    "changeType": 0,
+                    "name": "T_enableF_Lft",
+                    "rawVal": 0
+                },
+                {
+                    "changeParams": [
+                    ],
+                    "changeType": 0,
+                    "name": "T_PWMenableF_Lft",
+                    "rawVal": 0
+                },
+                {
+                    "changeParams": [
+                    ],
+                    "changeType": 0,
+                    "name": "T_IO_state",
+                    "rawVal": 0
+                },
+                {
+                    "changeParams": [
+                    ],
+                    "changeType": 0,
+                    "name": "T_torqueSetF_Rgh",
+                    "rawVal": 0
+                },
+                {
+                    "changeParams": [
+                    ],
+                    "changeType": 0,
+                    "name": "T_enableF_Rgh",
+                    "rawVal": 0
+                },
+                {
+                    "changeParams": [
+                    ],
+                    "changeType": 0,
+                    "name": "T_PWMenableF_Rgh",
+                    "rawVal": 0
+                },
+                {
+                    "changeParams": [
+                        1,
+                        0,
+                        15
+                    ],
+                    "changeType": 1,
+                    "name": "T_MessCountF",
+                    "rawVal": 0
+                }
+            ]
+        }
+    ],
+    "protocol": 1,
+    "sendSpeed": 6,
+    "transFailMode": 2
+}

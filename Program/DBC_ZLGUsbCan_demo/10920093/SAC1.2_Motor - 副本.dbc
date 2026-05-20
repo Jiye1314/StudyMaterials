@@ -1,0 +1,296 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: traction_can1_1275FL lift_can1_1275FL
+
+
+BO_ 3221225472 VECTOR__INDEPENDENT_SIG_MSG: 0 Vector__XXX
+ SG_ VCLi_DevDat2 : 0|16@1- (1,0) [0|0] "" Vector__XXX
+ SG_ VCLi_DevDat1 : 0|16@1- (1,0) [0|0] "" Vector__XXX
+ SG_ VCLi_DevDat4 : 0|16@1- (1,0) [0|0] "" Vector__XXX
+ SG_ VCLi_DevDat3 : 0|16@1- (1,0) [0|0] "" Vector__XXX
+ SG_ VCTr_DevDat4 : 0|16@1- (1,0) [0|0] "" Vector__XXX
+ SG_ VCTr_DevDat3 : 0|16@1- (1,0) [0|0] "" Vector__XXX
+ SG_ VCTr_DevDat2 : 0|16@1- (1,0) [0|0] "" Vector__XXX
+ SG_ VCTr_DevDat1 : 0|16@1- (1,0) [0|0] "" Vector__XXX
+ SG_ Traction_SDOreq_PowerLift1_Data : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Traction_SDOreq_PowerTracL_Data : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ PowerLift1_SDOresp_Traction_Data : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ PowerTracL_SDOresp_Traction_Data : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ SP_IO_state : 0|8@1- (1,0) [0|0] "" Vector__XXX
+ SG_ SP_MessCount : 0|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ TP_IO_state : 0|8@1- (1,0) [0|0] "" Vector__XXX
+ SG_ TP_MessCount : 0|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_Err4_Rgh : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_Err3_Rgh : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_Err2_Rgh : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_Err1_Rgh : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_Err4_Lft : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_Err3_Lft : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_Err2_Lft : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_Err1_Lft : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_pwmRatio_Rgh : 0|16@1+ (0.1,0) [0|0] "%" Vector__XXX
+ SG_ T_measSpeed_Rgh : 0|16@1- (1,0) [0|0] "rpm" Vector__XXX
+ SG_ T_estTorque_Rgh : 0|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
+ SG_ T_estBatCurr_Rgh : 0|16@1- (1,0) [0|0] "A" Vector__XXX
+ SG_ T_pwmRatio_Lft : 0|16@1+ (0.1,0) [0|0] "%" Vector__XXX
+ SG_ T_measSpeed_Lft : 0|16@1- (1,0) [0|0] "rpm" Vector__XXX
+ SG_ T_estTorque_Lft : 0|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
+ SG_ T_estBatCurr_Lft : 0|16@1- (1,0) [0|0] "A" Vector__XXX
+ SG_ T_statorFreq_Rgh : 0|16@1- (1,0) [0|0] "Hz" Vector__XXX
+ SG_ T_chipTemp_Rgh : 0|8@1+ (1,-40) [0|0] "°C" Vector__XXX
+ SG_ T_motTemp_Rgh : 0|8@1+ (1,-40) [0|0] "°C" Vector__XXX
+ SG_ T_statorCurrent_Rgh : 0|16@1+ (1,0) [0|0] "A" Vector__XXX
+ SG_ T_AliveCount_Rgh : 0|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_NoPwmSet_Rgh : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_ConvLocked_Rgh : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_NoSwEnable_Rgh : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_NoHwEnable_Rgh : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_MagnReady_Rgh : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_PWMstat_Rgh : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_ConvReady_Rgh : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_NoError_Rgh : 0|2@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_statorFreq_Lft : 0|16@1- (1,0) [0|0] "Hz" Vector__XXX
+ SG_ T_chipTemp_Lft : 0|8@1+ (1,-40) [0|0] "°C" Vector__XXX
+ SG_ T_motTemp_Lft : 0|8@1+ (1,-40) [0|0] "°C" Vector__XXX
+ SG_ T_statorCurrent_Lft : 0|16@1+ (1,0) [0|0] "A" Vector__XXX
+ SG_ T_AliveCount_Lft : 0|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_NoPwmSet_Lft : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_ConvLocked_Lft : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_NoSwEnable_Lft : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_NoHwEnable_Lft : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_MagnReady_Lft : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_PWMstat_Lft : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_ConvReady_Lft : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ T_NoError_Lft : 0|2@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Power2_DiagResponse_Data : 0|56@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Power2_DiagResponse_PCI : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Traction_SDOreq_Lift_Data : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Lift_SDOresp_Traction_Data : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Power1_DiagResponse_Data : 0|56@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Power1_DiagResponse_PCI : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ DiagRequest_Power2_Data : 0|56@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ DiagRequest_Power2_PCI : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ DiagRequest_Power1_Data : 0|56@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ DiagRequest_Power1_PCI : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ DiagRequest_Functional_Data : 0|56@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ DiagRequest_Functional_PCI : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ DDiagRespData : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ DDiagReqData : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 1803 Power2_Lift1_Heartbeat: 1 Vector__XXX
+ SG_ PowerLift1_State : 0|8@1+ (1,0) [0|0] ""  traction_can1_1275FL,lift_can1_1275FL
+
+BO_ 1802 Power1_TracL_Heartbeat: 1 Vector__XXX
+ SG_ PowerTracL_State : 0|8@1+ (1,0) [0|0] ""  traction_can1_1275FL,lift_can1_1275FL
+
+BO_ 907 Power2_Lift1_PDO3: 8 Vector__XXX
+ SG_ L1_Err4 : 48|16@1+ (1,0) [0|0] ""  traction_can1_1275FL,lift_can1_1275FL
+ SG_ L1_Err3 : 32|16@1+ (1,0) [0|0] ""  traction_can1_1275FL,lift_can1_1275FL
+ SG_ L1_Err2 : 16|16@1+ (1,0) [0|0] ""  traction_can1_1275FL,lift_can1_1275FL
+ SG_ L1_Err1 : 0|16@1+ (1,0) [0|0] ""  traction_can1_1275FL,lift_can1_1275FL
+
+BO_ 651 Power2_Lift1_PDO2: 8 Vector__XXX
+ SG_ L1_pwmRatio : 48|16@1+ (0.1,0) [0|0] "%"  traction_can1_1275FL,lift_can1_1275FL
+ SG_ L1_estBatCurr : 32|16@1- (1,0) [0|0] "A"  traction_can1_1275FL,lift_can1_1275FL
+ SG_ L1_measSpeed : 16|16@1- (1,0) [0|0] "rpm"  traction_can1_1275FL,lift_can1_1275FL
+ SG_ L1_estTorque : 0|16@1- (0.1,0) [0|0] "Nm"  traction_can1_1275FL,lift_can1_1275FL
+
+BO_ 395 Power2_Lift1_PDO1: 8 Vector__XXX
+ SG_ L1_AliveCount : 60|4@1+ (1,0) [0|0] ""  traction_can1_1275FL,lift_can1_1275FL
+ SG_ L1_NoPwmSet : 56|1@1+ (1,0) [0|0] ""  traction_can1_1275FL,lift_can1_1275FL
+ SG_ L1_NoSwEnable : 54|1@1+ (1,0) [0|0] ""  traction_can1_1275FL,lift_can1_1275FL
+ SG_ L1_NoHwEnable : 53|1@1+ (1,0) [0|0] ""  traction_can1_1275FL,lift_can1_1275FL
+ SG_ L1_MagnReady : 52|1@1+ (1,0) [0|0] ""  traction_can1_1275FL,lift_can1_1275FL
+ SG_ L1_PWMstat : 51|1@1+ (1,0) [0|0] ""  traction_can1_1275FL,lift_can1_1275FL
+ SG_ L1_ConvReady : 50|1@1+ (1,0) [0|0] ""  traction_can1_1275FL,lift_can1_1275FL
+ SG_ L1_NoError : 48|2@1+ (1,0) [0|0] ""  traction_can1_1275FL,lift_can1_1275FL
+ SG_ L1_statorFreq : 32|16@1- (1,0) [0|0] "Hz"  traction_can1_1275FL,lift_can1_1275FL
+ SG_ L1_chipTemp : 24|8@1+ (1,-40) [0|0] "°C"  traction_can1_1275FL,lift_can1_1275FL
+ SG_ L1_statorCurrent : 0|16@1+ (1,0) [0|0] "A"  traction_can1_1275FL,lift_can1_1275FL
+ SG_ L1_ConvLocked : 55|1@1+ (1,0) [0|0] ""  traction_can1_1275FL,lift_can1_1275FL
+ SG_ L1_motTemp : 16|8@1+ (1,-40) [0|0] "°C"  traction_can1_1275FL,lift_can1_1275FL
+
+BO_ 386 Lift_PDO1_can1: 8 lift_can1_1275FL
+ SG_ L_MessCount1 : 60|4@1+ (1,0) [0|0] ""  traction_can1_1275FL
+ SG_ L_PWMenable1 : 51|1@1+ (1,0) [0|0] ""  traction_can1_1275FL
+ SG_ L_CMain1 : 50|1@1- (1,0) [0|0] ""  traction_can1_1275FL
+ SG_ L_enable1 : 48|2@1+ (1,0) [0|0] ""  traction_can1_1275FL
+ SG_ L_MTemp1 : 40|8@1+ (1,-40) [0|0] "°C"  traction_can1_1275FL
+ SG_ L_speedSet1 : 16|16@1- (1,0) [0|0] "rpm"  traction_can1_1275FL
+ SG_ L_torqueSet1 : 0|16@1- (0.1,0) [0|0] "Nm"  traction_can1_1275FL
+ SG_ L_IO_state1 : 32|8@1- (1,0) [0|0] ""  traction_can1_1275FL
+
+BO_ 129 Traction_PDOF: 8 traction_can1_1275FL
+ SG_ T_IO_state : 24|8@1- (1,0) [0|0] ""  lift_can1_1275FL
+ SG_ T_MessCountF : 52|4@1+ (1,0) [0|0] ""  lift_can1_1275FL
+ SG_ T_PWMenableF_Rgh : 50|1@1+ (1,0) [0|0] ""  lift_can1_1275FL
+ SG_ T_enableF_Rgh : 48|2@1+ (1,0) [0|0] ""  lift_can1_1275FL
+ SG_ T_torqueSetF_Rgh : 32|16@1- (0.1,0) [0|0] "Nm"  lift_can1_1275FL
+ SG_ T_PWMenableF_Lft : 18|1@1+ (1,0) [0|0] ""  lift_can1_1275FL
+ SG_ T_enableF_Lft : 16|2@1+ (1,0) [0|0] ""  lift_can1_1275FL
+ SG_ T_torqueSetF_Lft : 0|16@1- (0.1,0) [0|0] "Nm"  lift_can1_1275FL
+
+BO_ 1794 Lift_Heartbeat: 1 lift_can1_1275FL
+ SG_ LiftState : 0|8@1+ (1,0) [0|0] ""  traction_can1_1275FL
+
+BO_ 1793 Traction_Heartbeat: 1 traction_can1_1275FL
+ SG_ TracState : 0|8@1+ (1,0) [0|0] ""  lift_can1_1275FL
+
+BO_ 1153 Traction_PDO4: 4 traction_can1_1275FL
+ SG_ TruckWorkTime : 0|32@1+ (1,0) [0|0] "sec" Vector__XXX
+
+BO_ 255 TimeStamp: 4 lift_can1_1275FL
+ SG_ DateTime : 0|32@1+ (1,0) [0|0] "sec" Vector__XXX
+
+BO_ 128 SYNC: 0 traction_can1_1275FL
+ SG_ foo : 0|8@1- (1,0) [0|0] "" Vector__XXX
+
+BO_ 0 ModuleControl: 2 traction_can1_1275FL
+ SG_ NodeID : 8|8@1+ (1,0) [0|0] ""  lift_can1_1275FL
+ SG_ ServiceID : 0|8@1+ (1,0) [0|0] ""  lift_can1_1275FL
+
+
+
+CM_ "last exported from MKS revision 1.16";
+CM_ BU_ traction_can1_1275FL "traction controller (BR1275, powertrain CAN)";
+CM_ BU_ lift_can1_1275FL "lift controller (BR1275, powertrain CAN)";
+CM_ BO_ 3221225472 "This is a message for not used signals, created by Vector CANdb++ DBC OLE DB Provider.";
+CM_ BO_ 1803 "network management, error control, power-module (lift 1) heartbeat";
+CM_ BO_ 1802 "network management, error control, power-module (traction left or both sides or traction left and lift) heartbeat";
+CM_ BO_ 907 "power-module (lift 1) transmit PDO #3";
+CM_ BO_ 651 "power-module (lift 1) transmit PDO #2";
+CM_ BO_ 395 "power-module (lift 1) transmit PDO #1";
+CM_ BO_ 386 "Lift Transmit PDO #1 (powertrain CAN)";
+CM_ BO_ 129 "Traction Transmit PDO (powertrain CAN)";
+CM_ BO_ 1794 "Network Management, Error Control, Lift Heartbeat";
+CM_ BO_ 1793 "Network Management, Error Control, Traction Heartbeat";
+CM_ BO_ 1153 "Traction Transmit PDO #4";
+CM_ BO_ 255 "CANopen TIME object";
+CM_ BO_ 128 "CANopen SYNC object";
+CM_ BO_ 0 "Network Management, Module Control";
+BA_DEF_ SG_  "GenSigStartValue" FLOAT 0 100000000000;
+BA_DEF_ SG_  "GenSigInactiveValue" INT 0 100000;
+BA_DEF_ SG_  "GenSigSendType" ENUM  "Cyclic","OnWrite","OnWriteWithRepetition","OnChange","OnChangeWithRepetition","IfActive","IfActiveWithRepetition","NoSigSendType","OnChangeAndIfActive","OnChangeAndIfActiveWithRepetition";
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 50000;
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 999999;
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 1000;
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 65535;
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagResponse" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagRequest" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "Cyclic","not_used","not_used","not_used","not_used","not_used","not_used","IfActive","NoMsgSendType","not_used";
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 180000;
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ BU_  "NmStationAddress" HEX 0 0;
+BA_DEF_  "VersionNumber" INT 0 0;
+BA_DEF_  "VersionYear" INT 0 99;
+BA_DEF_  "VersionMonth" INT 0 12;
+BA_DEF_  "VersionDay" INT 0 31;
+BA_DEF_  "Manufacturer" ENUM  "invalid","invalid","invalid","invalid","invalid","invalid","LINDE","invalid";
+BA_DEF_  "BusType" STRING ;
+BA_DEF_  "DBName" STRING ;
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "GenSigSendType" "Cyclic";
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 0;
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 0;
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "GenMsgILSupport" "No";
+BA_DEF_DEF_  "DiagResponse" "No";
+BA_DEF_DEF_  "DiagRequest" "No";
+BA_DEF_DEF_  "GenMsgSendType" "NoMsgSendType";
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "NodeLayerModules" "";
+BA_DEF_DEF_  "NmStationAddress" 0;
+BA_DEF_DEF_  "VersionNumber" 0;
+BA_DEF_DEF_  "VersionYear" 0;
+BA_DEF_DEF_  "VersionMonth" 1;
+BA_DEF_DEF_  "VersionDay" 1;
+BA_DEF_DEF_  "Manufacturer" "LINDE";
+BA_DEF_DEF_  "BusType" "CAN";
+BA_DEF_DEF_  "DBName" "";
+BA_ "VersionYear" 16;
+BA_ "VersionMonth" 10;
+BA_ "VersionDay" 25;
+BA_ "BusType" "CAN";
+BA_ "DBName" "CAN1_1275";
+BA_ "NodeLayerModules" BU_ traction_can1_1275FL "CANoeILNLVector.dll";
+BA_ "NmStationAddress" BU_ traction_can1_1275FL 1;
+BA_ "NodeLayerModules" BU_ lift_can1_1275FL "CANoeILNLVector.dll";
+BA_ "NmStationAddress" BU_ lift_can1_1275FL 2;
+BA_ "GenMsgILSupport" BO_ 1803 1;
+BA_ "GenMsgSendType" BO_ 1803 0;
+BA_ "GenMsgCycleTime" BO_ 1803 40;
+BA_ "GenMsgILSupport" BO_ 1802 1;
+BA_ "GenMsgSendType" BO_ 1802 0;
+BA_ "GenMsgCycleTime" BO_ 1802 40;
+BA_ "GenMsgSendType" BO_ 907 8;
+BA_ "GenMsgILSupport" BO_ 651 1;
+BA_ "GenMsgSendType" BO_ 651 0;
+BA_ "GenMsgCycleTime" BO_ 651 10;
+BA_ "GenMsgILSupport" BO_ 395 1;
+BA_ "GenMsgSendType" BO_ 395 0;
+BA_ "GenMsgCycleTime" BO_ 395 10;
+BA_ "GenMsgILSupport" BO_ 386 1;
+BA_ "GenMsgSendType" BO_ 386 0;
+BA_ "GenMsgCycleTime" BO_ 386 10;
+BA_ "GenMsgILSupport" BO_ 129 1;
+BA_ "GenMsgSendType" BO_ 129 0;
+BA_ "GenMsgCycleTime" BO_ 129 2;
+BA_ "GenMsgILSupport" BO_ 1794 1;
+BA_ "GenMsgSendType" BO_ 1794 0;
+BA_ "GenMsgCycleTime" BO_ 1794 40;
+BA_ "GenMsgILSupport" BO_ 1793 1;
+BA_ "GenMsgSendType" BO_ 1793 0;
+BA_ "GenMsgCycleTime" BO_ 1793 40;
+BA_ "GenMsgILSupport" BO_ 1153 1;
+BA_ "GenMsgSendType" BO_ 1153 0;
+BA_ "GenMsgCycleTime" BO_ 1153 1000;
+BA_ "GenMsgILSupport" BO_ 255 1;
+BA_ "GenMsgSendType" BO_ 255 0;
+BA_ "GenMsgCycleTime" BO_ 255 1000;
+BA_ "GenMsgILSupport" BO_ 128 1;
+BA_ "GenMsgSendType" BO_ 128 0;
+BA_ "GenMsgCycleTime" BO_ 128 10;
+BA_ "GenMsgSendType" BO_ 0 8;
+VAL_ 1803 PowerLift1_State 127 "PREOPERATIONAL" 5 "OPERATIONAL" 4 "STOPPED" 0 "BOOTUP" ;
+VAL_ 1802 PowerTracL_State 127 "PREOPERATIONAL" 5 "OPERATIONAL" 4 "STOPPED" 0 "BOOTUP" ;
+VAL_ 1794 LiftState 127 "PREOPERATIONAL" 5 "OPERATIONAL" 4 "STOPPED" 0 "BOOTUP" ;
+VAL_ 1793 TracState 127 "PREOPERATIONAL" 5 "OPERATIONAL" 4 "STOPPED" 0 "BOOTUP" ;
+VAL_ 0 NodeID 27 "Power-Module Lift 2" 26 "Power-Module Traction Right" 21 "LFI" 20 "DDS" 19 "LTI-Display" 18 "Lift Height Sensor Node 2" 17 "Lift Height Sensor Node 1" 15 "Current Sensor" 13 "Lithium-Ion BMS" 11 "Power-Module Lift 1" 10 "Power-Module Traction Left" 8 "UPA2" 7 "UPA1" 6 "Datalogger" 5 "Charger" 4 "Display" 3 "Steering (invalid)" 2 "Lift" 1 "Traction" 0 "AllNodes" ;
+VAL_ 0 ServiceID 130 "ResetCommunication" 129 "ResetNode" 128 "EnterPreOperational" 2 "StopRemoteNode" 1 "StartRemoteNode" ;
+
