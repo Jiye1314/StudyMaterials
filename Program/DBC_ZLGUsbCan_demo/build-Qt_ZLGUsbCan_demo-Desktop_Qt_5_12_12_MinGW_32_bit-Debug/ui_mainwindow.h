@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -19,7 +20,6 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QWidget>
@@ -40,13 +40,17 @@ public:
     QLineEdit *lineEdit_num;
     QLabel *label_2;
     QTableWidget *tableWidget;
-    QWidget *widget;
+    QWidget *layoutWidget1;
     QHBoxLayout *horizontalLayout_2;
     QLabel *label_L_speedSet1;
-    QSpinBox *spinBox;
+    QDoubleSpinBox *doubleSpinBox;
     QLabel *label_L_PWMenable1;
     QComboBox *comboBox;
-    QPushButton *btn_set;
+    QWidget *widget;
+    QHBoxLayout *horizontalLayout_3;
+    QLabel *label_3;
+    QLineEdit *lineEdit_nowrpm;
+    QLabel *label_4;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -54,7 +58,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(750, 560);
+        MainWindow->resize(746, 582);
         QFont font;
         font.setPointSize(12);
         MainWindow->setFont(font);
@@ -62,7 +66,7 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         layoutWidget = new QWidget(centralwidget);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(70, 360, 601, 51));
+        layoutWidget->setGeometry(QRect(50, 360, 651, 51));
         horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
@@ -129,43 +133,60 @@ public:
         tableWidget->setVerticalHeaderItem(4, __qtablewidgetitem9);
         tableWidget->setObjectName(QString::fromUtf8("tableWidget"));
         tableWidget->setGeometry(QRect(40, 30, 671, 301));
-        widget = new QWidget(centralwidget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(60, 430, 611, 41));
-        horizontalLayout_2 = new QHBoxLayout(widget);
+        layoutWidget1 = new QWidget(centralwidget);
+        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(60, 430, 611, 41));
+        horizontalLayout_2 = new QHBoxLayout(layoutWidget1);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        label_L_speedSet1 = new QLabel(widget);
+        label_L_speedSet1 = new QLabel(layoutWidget1);
         label_L_speedSet1->setObjectName(QString::fromUtf8("label_L_speedSet1"));
 
         horizontalLayout_2->addWidget(label_L_speedSet1);
 
-        spinBox = new QSpinBox(widget);
-        spinBox->setObjectName(QString::fromUtf8("spinBox"));
+        doubleSpinBox = new QDoubleSpinBox(layoutWidget1);
+        doubleSpinBox->setObjectName(QString::fromUtf8("doubleSpinBox"));
 
-        horizontalLayout_2->addWidget(spinBox);
+        horizontalLayout_2->addWidget(doubleSpinBox);
 
-        label_L_PWMenable1 = new QLabel(widget);
+        label_L_PWMenable1 = new QLabel(layoutWidget1);
         label_L_PWMenable1->setObjectName(QString::fromUtf8("label_L_PWMenable1"));
 
         horizontalLayout_2->addWidget(label_L_PWMenable1);
 
-        comboBox = new QComboBox(widget);
+        comboBox = new QComboBox(layoutWidget1);
         comboBox->addItem(QString());
         comboBox->addItem(QString());
         comboBox->setObjectName(QString::fromUtf8("comboBox"));
 
         horizontalLayout_2->addWidget(comboBox);
 
-        btn_set = new QPushButton(widget);
-        btn_set->setObjectName(QString::fromUtf8("btn_set"));
+        widget = new QWidget(centralwidget);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        widget->setGeometry(QRect(60, 480, 241, 31));
+        horizontalLayout_3 = new QHBoxLayout(widget);
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
+        horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
+        label_3 = new QLabel(widget);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
 
-        horizontalLayout_2->addWidget(btn_set);
+        horizontalLayout_3->addWidget(label_3);
+
+        lineEdit_nowrpm = new QLineEdit(widget);
+        lineEdit_nowrpm->setObjectName(QString::fromUtf8("lineEdit_nowrpm"));
+        lineEdit_nowrpm->setEnabled(false);
+
+        horizontalLayout_3->addWidget(lineEdit_nowrpm);
+
+        label_4 = new QLabel(widget);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
+
+        horizontalLayout_3->addWidget(label_4);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 750, 33));
+        menubar->setGeometry(QRect(0, 0, 746, 33));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -211,7 +232,9 @@ public:
         comboBox->setItemText(0, QApplication::translate("MainWindow", "1", nullptr));
         comboBox->setItemText(1, QApplication::translate("MainWindow", "0", nullptr));
 
-        btn_set->setText(QApplication::translate("MainWindow", "\350\256\276\347\275\256", nullptr));
+        label_3->setText(QApplication::translate("MainWindow", "\345\275\223\345\211\215\350\275\254\346\225\260\344\270\272\357\274\232", nullptr));
+        lineEdit_nowrpm->setText(QApplication::translate("MainWindow", "0", nullptr));
+        label_4->setText(QApplication::translate("MainWindow", "rpm", nullptr));
     } // retranslateUi
 
 };

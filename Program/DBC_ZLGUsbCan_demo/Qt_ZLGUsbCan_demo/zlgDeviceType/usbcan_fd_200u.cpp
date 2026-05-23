@@ -231,40 +231,40 @@ void USBCAN_FD_200U::buildTractionPDO4Frame(ZCAN_Transmit_Data &can)
 }
 
 //构造LiftPDO1Can1报文(信号控制)
-void USBCAN_FD_200U::buildLiftPDO1Can1Frame(ZCAN_Transmit_Data &can,uint8_t messCount)
+void USBCAN_FD_200U::buildLiftPDO1Can1Frame(ZCAN_Transmit_Data &can,int messCount)
 {
     memset(&can,0,sizeof (can));
     can.frame.can_id = MAKE_CAN_ID(0x0182,0,0,0);
     can.frame.can_dlc = 8;
     can.transmit_type = 0;
 
-    uint8_t L_MessCount1  = (messCount) % 16;  // 0~15 循环，等差+1
+    int L_MessCount1  = (messCount) % 16;  // 0~15 循环，等差+1
 
     can.frame.data[0] = 0;
     can.frame.data[1] = L_speedSet1;
     can.frame.data[2] = 0;
-    can.frame.data[3] = 0;
+    can.frame.data[3] = 40;
     can.frame.data[4] = 2;
-    can.frame.data[5] = -1;
+    can.frame.data[5] = 1;
     can.frame.data[6] = L_PWMenable1;
     can.frame.data[7] = L_MessCount1;
 }
 
 //构造TractionPDOF报文(信号控制)
-void USBCAN_FD_200U::buildTractionPDOFFrame(ZCAN_Transmit_Data &can,uint8_t messCountF)
+void USBCAN_FD_200U::buildTractionPDOFFrame(ZCAN_Transmit_Data &can,int messCountF)
 {
     memset(&can,0,sizeof (can));
     can.frame.can_id = MAKE_CAN_ID(0x0081,0,0,0);
     can.frame.can_dlc = 8;
     can.transmit_type = 0;
 
-    uint8_t T_MessCountF  = (messCountF)%16;  // 0~15 循环，等差+1
+    int T_MessCountF  = (messCountF)%16;  // 0~15 循环，等差+1
 
     can.frame.data[0] = 0;
     can.frame.data[1] = 0;
     can.frame.data[2] = 0;
     can.frame.data[3] = 0;
-    can.frame.data[4] = 2;
+    can.frame.data[4] = 0;
     can.frame.data[5] = 0;
     can.frame.data[6] = 0;
     can.frame.data[7] = T_MessCountF;
@@ -414,27 +414,26 @@ void USBCAN_FD_200U::thread_task_fd_200u(CHANNEL_HANDLE handle)
 
         for (int i = 0; i < rcount; ++i)
         {
-            qDebug() << "==================================================";
-            qDebug() << "通道:" << ((unsigned int)handle & 0x000000FF);
-            qDebug() << "接收报文";
-            qDebug() << "ID: 0x" << QString::number(data[i].frame.can_id, 16);
-            qDebug() << "长度:" << (int)data[i].frame.can_dlc;
-
-
+            int channel = ((unsigned int)handle & 0x000000FF);
             QByteArray hex;
             for (int j = 0; j < data[i].frame.can_dlc; j++)
             {
                 hex.append(QString("%1 ").arg(data[i].frame.data[j], 2, 16, QChar('0')));
             }
-            qDebug() << "数据:" << hex;
-            qDebug() << "共接收:" << thcount << "次";
-            emit signalsSendNum(thcount++);
-            qDebug()<<"当前时间："<<QDateTime::currentDateTime();
-            QThread::msleep(100);
 
-            //将内容更新到UI
-            uint32_t canId = GET_ID(data[i].frame.can_id);
-            uint8_t dlc = data[i].frame.can_dlc;
+//            qDebug() << "==================================================";
+//            qDebug() << "通道:" << channel << " 接收报文";
+//            qDebug() << "ID: 0x" << QString::number(data[i].frame.can_id, 16);
+//            qDebug() << "长度:" << (int)data[i].frame.can_dlc;
+//            qDebug() << "数据:" << hex;
+//            qDebug() << "共接收:" << thcount << "次";
+//            qDebug()<<"当前时间："<<QDateTime::currentDateTime();
+
+            emit signalsSendNum(thcount++);
+
+            //将内容更新到 UI
+            int canId = GET_ID(data[i].frame.can_id);
+            int dlc = data[i].frame.can_dlc;
             // 组装数据为 QByteArray
             QByteArray hexData;
             for (int j = 0; j < dlc; j++)
@@ -442,10 +441,9 @@ void USBCAN_FD_200U::thread_task_fd_200u(CHANNEL_HANDLE handle)
                 hexData.append(QString("%1 ").arg(data[i].frame.data[j], 2, 16, QChar('0')).toUpper());
             }
             // 发射信号给 UI（所有帧都发，让 UI 过滤）
-            emit signalsReceivedFrame(canId, dlc, hexData);
+            emit signalsReceivedFrame(channel,canId, dlc, hexData);
             emit signalsSendNum(idcount++);
         }
-        QThread::msleep(100);
     }
     qDebug()<< "按下关闭按钮，接收线程退出";
 }
@@ -477,10 +475,14 @@ void USBCAN_FD_200U::thread_task_can(CHANNEL_HANDLE handle)
     //    qDebug()<<"chnl: "<<nChnl<<" thread 退出";
 }
 
-void USBCAN_FD_200U::slotsSetSpeedSet1PWMenable1(uint8 num1, uint8 num2)
+void USBCAN_FD_200U::slotsSetLSpeedSet1(double num)
 {
-    L_speedSet1 = num1;
-    L_PWMenable1 = num2;
+    L_speedSet1 = num;
+}
+
+void USBCAN_FD_200U::slotsSetLPWMenable1(int num)
+{
+    L_PWMenable1 = num;
 }
 
 //LiftPDO1Can1报文(信号控制)定时器

@@ -20,11 +20,11 @@ signals:
     //更新计数
     void signalsSendNum(int num);
     // 将收到的 CAN 帧数据发给 UI 显示
-    void signalsReceivedFrame(uint32_t canId, uint8_t dlc, const QByteArray &data);
+    void signalsReceivedFrame(int channel,int canId, int dlc, const QByteArray &data);
 
 public slots:
-    void slotsSetSpeedSet1PWMenable1(uint8 num1,uint8 num2);
-
+    void slotsSetLSpeedSet1(double num);
+    void slotsSetLPWMenable1(int num);
     void onTimerLiftPDO();      // LiftPDO1 定时回调
     void onTimerTractionPDO();  // TractionPDOF 定时回调
 
@@ -44,8 +44,8 @@ public:
     void buildPowerTracLHBFrame(ZCAN_Transmit_Data &can);
     void buildModuleCtrlFrame(ZCAN_Transmit_Data &can);
     void buildTractionPDO4Frame(ZCAN_Transmit_Data &can);
-    void buildLiftPDO1Can1Frame(ZCAN_Transmit_Data &can, uint8_t messCount);
-    void buildTractionPDOFFrame(ZCAN_Transmit_Data &can, uint8_t messCountF);
+    void buildLiftPDO1Can1Frame(ZCAN_Transmit_Data &can, int messCount);
+    void buildTractionPDOFFrame(ZCAN_Transmit_Data &can, int messCountF);
     // 定时发送CAN报文函数
     bool timerSend_can();
     // 接收 CAN 线程函数
@@ -60,14 +60,14 @@ private:
     // 线程指针数组
     QVector<QThread*> thd_handle;
 
-    uint8 L_speedSet1 = 0;
-    uint8 L_PWMenable1 = 1;
+    int L_speedSet1 = 0;
+    int L_PWMenable1 = 1;
 
     QTimer *m_timerLiftPDO;     // LiftPDO1 定时器 (10ms)
     QTimer *m_timerTractionPDO; // TractionPDOF 定时器 (2ms)
     //等差循环计算
-    uint8_t m_messCountL = 0;   // L_MessCount1 计数器
-    uint8_t m_messCountT = 0;   // T_MessCountF 计数器
+    int m_messCountL = 0;   // L_MessCount1 计数器
+    int m_messCountT = 0;   // T_MessCountF 计数器
 private:
 
 };

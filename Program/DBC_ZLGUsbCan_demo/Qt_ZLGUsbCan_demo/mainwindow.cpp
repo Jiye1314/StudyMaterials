@@ -10,13 +10,18 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     btnSetEnableFalse();
     usbC_fd_200u = new USBCAN_FD_200U(this);
+
     connect(usbC_fd_200u,&USBCAN_FD_200U::signalsSendNum,this,&MainWindow::slotsUpdateNum, Qt::QueuedConnection);
-    connect(this,&MainWindow::signalsSetNum,usbC_fd_200u,&USBCAN_FD_200U::slotsSetSpeedSet1PWMenable1);
+    //连接转数和 PWM（表格）
+    connect(this,&MainWindow::signalLSpeedSetNum,usbC_fd_200u,&USBCAN_FD_200U::slotsSetLSpeedSet1);
+    connect(this,&MainWindow::signalLPWMenableNum,usbC_fd_200u,&USBCAN_FD_200U::slotsSetLPWMenable1);
+    //连接转数 rpm
+    connect(this,&MainWindow::signalLSpeedSetNum,this,&MainWindow::slotsUpdateRpmNum);
+
     qDebug()<<"当前时间："<<QDateTime::currentDateTime();
 
     // CAN 帧 → 表格刷新
     connect(usbC_fd_200u, &USBCAN_FD_200U::signalsReceivedFrame,this, &MainWindow::slotsUpdateTableWidget, Qt::QueuedConnection);
-    connect(this, &MainWindow::signalsSetNum,usbC_fd_200u, &USBCAN_FD_200U::slotsSetSpeedSet1PWMenable1);
     initTableForID();
 }
 
@@ -40,7 +45,7 @@ void MainWindow::on_btn_openDev_clicked()
     }
 
 
-    ui->btn_openDev->setEnabled(false);
+    ui->btn_openDev->setEnabled(true);
 }
 
 
@@ -73,6 +78,8 @@ void MainWindow::btnSetEnableTrue()
     ui->btn_closeDev->setEnabled(true);
     ui->btn_send->setEnabled(true);
     ui->btn_send_2->setEnabled(true);
+    ui->comboBox->setEnabled(true);
+    ui->doubleSpinBox->setEnabled(true);
 }
 
 void MainWindow::btnSetEnableFalse()
@@ -81,6 +88,8 @@ void MainWindow::btnSetEnableFalse()
     ui->btn_closeDev->setEnabled(false);
     ui->btn_send->setEnabled(false);
     ui->btn_send_2->setEnabled(false);
+    ui->comboBox->setEnabled(false);
+    ui->doubleSpinBox->setEnabled(false);
 }
 
 
@@ -91,25 +100,55 @@ void MainWindow::on_btn_send_2_clicked()
 
 }
 
-//设置按钮
-void MainWindow::on_btn_set_clicked()
+// 收到帧时更新表格
+void MainWindow::slotsUpdateTableWidget(int channel, int canId, int dlc, const QByteArray &data)
 {
-    emit signalsSetNum(ui->spinBox->value(),ui->comboBox->currentText().toUInt());
-}
-
-// 收到帧时更新表格（只处理 0x0182）
-void MainWindow::slotsUpdateTableWidget(uint32_t canId, uint8_t dlc, const QByteArray &data)
-{
-    // 只显示 0x0182 的帧
-    if (canId != 0x0182 && canId != 0x0081) return;
+    // 只显示 xxx 的帧
+    //    if (canId != 0x0182 && canId != 0x0081 && canId != 0x0481)
+    //    {
+    //        return;
+    //    }
 
     m_frameCountMap[canId]++;
 
     int row;
-    if (canId == 0x0182) row = 0;
-    else if (canId == 0x0081) row = 1;
-    else return;
+    switch (canId)
+    {
+        case 0x0182:
+            row = 0;
+            break;
+        case 0x0081:
+            row = 1;
+            break;
+        case 0x0080:
+            row = 2;
+            break;
+        case 0x00FF:
+            row = 3;
+            break;
+        case 0x0701:
+            row = 4;
+            break;
+        case 0x0702:
+            row = 5;
+            break;
+        case 0x00:
+            row = 6;
+            break;
+        case 0x0481:
+            row = 7;
+            break;
+        default:
+            return;
+    }
 
+    // 转为 QString，保留 0x 前缀 + 固定4位十六进制
+    QString strID = QString("%1").arg(canId, 4, 16, QChar('0')).toUpper();
+    // 手动加上 0x 前缀（最终字符串：0x001A）
+    strID = "0x" + strID;
+
+    ui->tableWidget->setItem(row, 0, new QTableWidgetItem(QString::number(channel)));
+    ui->tableWidget->setItem(row, 1, new QTableWidgetItem(strID));
     ui->tableWidget->setItem(row, 2, new QTableWidgetItem(QString::number(dlc)));
     ui->tableWidget->setItem(row, 3, new QTableWidgetItem(QString(data)));
     ui->tableWidget->setItem(row, 4, new QTableWidgetItem(QString::number(m_frameCountMap[canId])));
@@ -118,7 +157,7 @@ void MainWindow::slotsUpdateTableWidget(uint32_t canId, uint8_t dlc, const QByte
 
 void MainWindow::initTableForID()
 {
-    ui->tableWidget->setRowCount(2); // 2 行
+    ui->tableWidget->setRowCount(8); // 8 行
     ui->tableWidget->setColumnCount(5); // 通道、ID、DLC、数据、次数
 
     QStringList headers;
@@ -132,21 +171,32 @@ void MainWindow::initTableForID()
     ui->tableWidget->setColumnWidth(3, 220); // 数据
     ui->tableWidget->setColumnWidth(4, 60); // 次数
 
-    // 预填固定信息
-    // 第 0 行：LiftPDO1 (0x0182)
-    ui->tableWidget->setItem(0, 0, new QTableWidgetItem("1"));
-    ui->tableWidget->setItem(0, 1, new QTableWidgetItem("0x0182"));
-    m_frameCountMap[0x0182] = 0;
-
-    // 第 1 行：TractionPDOF (0x0081)
-    ui->tableWidget->setItem(1, 0, new QTableWidgetItem("1"));
-    ui->tableWidget->setItem(1, 1, new QTableWidgetItem("0x0081"));
-    m_frameCountMap[0x0081] = 0;
+    //清空
+    m_frameCountMap.clear();
 }
 
 //更新计数
 void MainWindow::slotsUpdateNum(int num)
 {
     ui->lineEdit_num->setText(QString::number(num));
+}
+
+void MainWindow::slotsUpdateRpmNum(double num)
+{
+    ui->lineEdit_nowrpm->setText(QString::number(num*100));
+}
+
+//ui->comboBox取值
+void MainWindow::on_comboBox_currentIndexChanged(int index)
+{
+    int num = ui->comboBox->currentText().toUInt();
+    emit signalLPWMenableNum(num);
+}
+
+//ui->double spinBox取值
+void MainWindow::on_doubleSpinBox_valueChanged(double arg1)
+{
+    double num = arg1;
+    emit signalLSpeedSetNum(num);
 }
 

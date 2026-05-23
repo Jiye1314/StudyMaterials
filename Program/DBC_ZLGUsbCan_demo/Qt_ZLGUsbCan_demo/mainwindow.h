@@ -26,12 +26,15 @@ public:
     ~MainWindow();
 
 signals:
-    //数值
-    void signalsSetNum(uint8 speedSetNum,uint8 PWMenableNum);
+    //ui上的数值
+    void signalLSpeedSetNum(double speedSetNum);
+    void signalLPWMenableNum(int PWMenableNum);
 
 private slots:
     //更新计数
     void slotsUpdateNum(int num);
+    //更新转数显示
+    void slotsUpdateRpmNum(double num);
 
     void on_btn_openDev_clicked();
 
@@ -44,11 +47,17 @@ private slots:
 
     void on_btn_send_2_clicked();
 
-    void on_btn_set_clicked();
-
     // 更新表格显示
-    void slotsUpdateTableWidget(uint32_t canId, uint8_t dlc, const QByteArray &data);
+    void slotsUpdateTableWidget(int channel,int canId, int dlc, const QByteArray &data);
+    //初始化表格
     void initTableForID();
+
+
+    //ui->comboBox
+    void on_comboBox_currentIndexChanged(int index);
+    //ui->double spinBox
+    void on_doubleSpinBox_valueChanged(double arg1);
+
 private:
 
 
@@ -58,6 +67,6 @@ private:
     USBCAN_FD_200U *usbC_fd_200u;
 
     // QMap: CAN ID → 接收次数
-    QMap<uint32_t, int> m_frameCountMap;
+    QMap<int, int> m_frameCountMap;
 };
 #endif // MAINWINDOW_H
