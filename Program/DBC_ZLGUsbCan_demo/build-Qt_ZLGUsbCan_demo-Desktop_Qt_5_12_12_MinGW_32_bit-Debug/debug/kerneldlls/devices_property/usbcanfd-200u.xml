@@ -405,7 +405,7 @@
 				</meta>
 			</clear_delay_send_queue>
 			<set_tx_retry_policy flag="0x001E">
-				<value>2</value>
+				<value>1</value>
 				<meta>
 					<visible>true</visible>
 					<type>options.int32</type>

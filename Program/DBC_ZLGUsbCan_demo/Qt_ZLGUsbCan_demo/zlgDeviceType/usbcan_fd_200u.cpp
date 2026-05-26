@@ -13,6 +13,10 @@ USBCAN_FD_200U::USBCAN_FD_200U(QObject *parent) : QObject(parent)
     m_timerTractionPDO = new QTimer(this);
     connect(m_timerTractionPDO, &QTimer::timeout, this, &USBCAN_FD_200U::onTimerTractionPDO);
     m_timerTractionPDO->setInterval(2); // 2ms
+
+    m_timerStatus = new QTimer(this);
+    connect(m_timerStatus, &QTimer::timeout, this, &USBCAN_FD_200U::onTimerStatus);
+    m_timerStatus->setInterval(1);  // 1ms
 }
 
 
@@ -99,6 +103,10 @@ bool USBCAN_FD_200U::openDevice_fd_200u()
         //        // 软件环回模式（自发自收，无需外部接线）
         //        sprintf(path, "%d/mode", i);
         //        ZCAN_SetValue(deviceKey, path, "1"); // 1 = 环回模式
+
+        //发送失败重试策略
+        ZCAN_SetValue(deviceKey, "0/set_tx_retry_policy", "1"); //1 -发送失败不重传 2 -发送失败重传，直到总线关闭
+
 
         // 启动 CAN 通道
         if (!ZCAN_StartCAN(channelKey[i]))
@@ -275,6 +283,11 @@ bool USBCAN_FD_200U::timerSend_can()
 {
     if(!timer_send_fd_200u)
     {
+        ZCAN_CHANNEL_ERR_INFO err_info;
+        ZCAN_ReadChannelErrInfo(channelKey[0],&err_info);
+        qDebug() << err_info.error_code;
+
+
         timer_send_fd_200u = 1;
 
         //定时发送 CAN 报文
@@ -396,8 +409,8 @@ void USBCAN_FD_200U::thread_task_fd_200u(CHANNEL_HANDLE handle)
 {
     qDebug()<< "接收线程启动 handle:"<< handle << " g_thd_run=" << g_thd_run_fd_200u;
     ZCAN_Receive_Data data[100] = {};
-    int thcount = 1;
-    int idcount = 1;
+//    int thcount = 0;
+
 
     while (g_thd_run_fd_200u)
     {
@@ -415,11 +428,11 @@ void USBCAN_FD_200U::thread_task_fd_200u(CHANNEL_HANDLE handle)
         for (int i = 0; i < rcount; ++i)
         {
             int channel = ((unsigned int)handle & 0x000000FF);
-            QByteArray hex;
-            for (int j = 0; j < data[i].frame.can_dlc; j++)
-            {
-                hex.append(QString("%1 ").arg(data[i].frame.data[j], 2, 16, QChar('0')));
-            }
+//            QByteArray hex;
+//            for (int j = 0; j < data[i].frame.can_dlc; j++)
+//            {
+//                hex.append(QString("%1 ").arg(data[i].frame.data[j], 2, 16, QChar('0')));
+//            }
 
 //            qDebug() << "==================================================";
 //            qDebug() << "通道:" << channel << " 接收报文";
@@ -428,21 +441,21 @@ void USBCAN_FD_200U::thread_task_fd_200u(CHANNEL_HANDLE handle)
 //            qDebug() << "数据:" << hex;
 //            qDebug() << "共接收:" << thcount << "次";
 //            qDebug()<<"当前时间："<<QDateTime::currentDateTime();
-
-            emit signalsSendNum(thcount++);
+//            emit signalsSendNum(++thcount);
 
             //将内容更新到 UI
             int canId = GET_ID(data[i].frame.can_id);
             int dlc = data[i].frame.can_dlc;
             // 组装数据为 QByteArray
             QByteArray hexData;
+            //格式转换到16进制
             for (int j = 0; j < dlc; j++)
             {
                 hexData.append(QString("%1 ").arg(data[i].frame.data[j], 2, 16, QChar('0')).toUpper());
             }
             // 发射信号给 UI（所有帧都发，让 UI 过滤）
             emit signalsReceivedFrame(channel,canId, dlc, hexData);
-            emit signalsSendNum(idcount++);
+            emit signalsSendNum(++idcount);
         }
     }
     qDebug()<< "按下关闭按钮，接收线程退出";
@@ -505,4 +518,12 @@ void USBCAN_FD_200U::onTimerTractionPDO()
     ZCAN_Transmit(channelKey[0], &frame, 1);
 
     m_messCountT = (m_messCountT + 1) % 16; // 0~15 循环，等差+1
+}
+
+void USBCAN_FD_200U::onTimerStatus()
+{
+    if(timer_send_fd_200u == 1 && idcount == 0)
+    {
+        emit signalsStatus();
+    }
 }

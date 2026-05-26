@@ -44,8 +44,6 @@ void MainWindow::on_btn_openDev_clicked()
         btnSetEnableFalse();
     }
 
-
-    ui->btn_openDev->setEnabled(true);
 }
 
 

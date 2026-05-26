@@ -21,12 +21,15 @@ signals:
     void signalsSendNum(int num);
     // 将收到的 CAN 帧数据发给 UI 显示
     void signalsReceivedFrame(int channel,int canId, int dlc, const QByteArray &data);
+    //数据断开信号
+    void signalsStatus();
 
 public slots:
     void slotsSetLSpeedSet1(double num);
     void slotsSetLPWMenable1(int num);
     void onTimerLiftPDO();      // LiftPDO1 定时回调
     void onTimerTractionPDO();  // TractionPDOF 定时回调
+    void onTimerStatus();   //检测发送状态定时
 
 public:
     bool openDevice_fd_200u();
@@ -65,9 +68,12 @@ private:
 
     QTimer *m_timerLiftPDO;     // LiftPDO1 定时器 (10ms)
     QTimer *m_timerTractionPDO; // TractionPDOF 定时器 (2ms)
+    QTimer *m_timerStatus;  //检测发送状态定时器
     //等差循环计算
     int m_messCountL = 0;   // L_MessCount1 计数器
     int m_messCountT = 0;   // T_MessCountF 计数器
+
+    int idcount = 0;//ui计数显示
 private:
 
 };

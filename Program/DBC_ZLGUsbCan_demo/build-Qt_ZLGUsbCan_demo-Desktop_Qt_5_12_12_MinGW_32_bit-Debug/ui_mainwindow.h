@@ -46,11 +46,12 @@ public:
     QDoubleSpinBox *doubleSpinBox;
     QLabel *label_L_PWMenable1;
     QComboBox *comboBox;
-    QWidget *widget;
+    QWidget *layoutWidget2;
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_3;
     QLineEdit *lineEdit_nowrpm;
     QLabel *label_4;
+    QLabel *label_status;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -161,28 +162,31 @@ public:
 
         horizontalLayout_2->addWidget(comboBox);
 
-        widget = new QWidget(centralwidget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(60, 480, 241, 31));
-        horizontalLayout_3 = new QHBoxLayout(widget);
+        layoutWidget2 = new QWidget(centralwidget);
+        layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(60, 480, 241, 31));
+        horizontalLayout_3 = new QHBoxLayout(layoutWidget2);
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
-        label_3 = new QLabel(widget);
+        label_3 = new QLabel(layoutWidget2);
         label_3->setObjectName(QString::fromUtf8("label_3"));
 
         horizontalLayout_3->addWidget(label_3);
 
-        lineEdit_nowrpm = new QLineEdit(widget);
+        lineEdit_nowrpm = new QLineEdit(layoutWidget2);
         lineEdit_nowrpm->setObjectName(QString::fromUtf8("lineEdit_nowrpm"));
         lineEdit_nowrpm->setEnabled(false);
 
         horizontalLayout_3->addWidget(lineEdit_nowrpm);
 
-        label_4 = new QLabel(widget);
+        label_4 = new QLabel(layoutWidget2);
         label_4->setObjectName(QString::fromUtf8("label_4"));
 
         horizontalLayout_3->addWidget(label_4);
 
+        label_status = new QLabel(centralwidget);
+        label_status->setObjectName(QString::fromUtf8("label_status"));
+        label_status->setGeometry(QRect(500, 490, 171, 21));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -235,6 +239,7 @@ public:
         label_3->setText(QApplication::translate("MainWindow", "\345\275\223\345\211\215\350\275\254\346\225\260\344\270\272\357\274\232", nullptr));
         lineEdit_nowrpm->setText(QApplication::translate("MainWindow", "0", nullptr));
         label_4->setText(QApplication::translate("MainWindow", "rpm", nullptr));
+        label_status->setText(QApplication::translate("MainWindow", "\346\212\245\346\226\207\345\217\221\351\200\201/\346\216\245\346\224\266\346\255\243\345\270\270", nullptr));
     } // retranslateUi
 
 };
