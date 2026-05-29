@@ -27,14 +27,13 @@ public:
 
 signals:
     //ui上的数值
-    void signalLSpeedSetNum(double speedSetNum);
+    void signalLSpeedSetNum(int speedSetNum);
     void signalLPWMenableNum(int PWMenableNum);
-
 private slots:
     //更新计数
     void slotsUpdateNum(int num);
     //更新转数显示
-    void slotsUpdateRpmNum(double num);
+    void slotsUpdateRpmNum(int num);
 
     void on_btn_openDev_clicked();
 
@@ -55,8 +54,13 @@ private slots:
 
     //ui->comboBox
     void on_comboBox_currentIndexChanged(int index);
-    //ui->double spinBox
-    void on_doubleSpinBox_valueChanged(double arg1);
+
+    void on_btn_setL_speedSet_clicked();
+
+    void on_lineEdit_data_textEdited(const QString &arg1);
+
+    //连接中断提醒
+    void slotsExceptionStatus();
 
 private:
 

@@ -237,6 +237,8 @@ debug/moc_mainwindow.cpp: ../Qt_ZLGUsbCan_demo/mainwindow.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qtabwidget.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qicon.h \
+		../Qt_ZLGUsbCan_demo/zlgDeviceType/usbcan_2e_u.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QObject \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QDebug \
 		../Qt_ZLGUsbCan_demo/zlgcan_x86/zlgcan.h \
 		../Qt_ZLGUsbCan_demo/zlgcan_x86/canframe.h \
@@ -244,13 +246,18 @@ debug/moc_mainwindow.cpp: ../Qt_ZLGUsbCan_demo/mainwindow.h \
 		../Qt_ZLGUsbCan_demo/zlgcan_x86/config.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QEventLoop \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qeventloop.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QTimer \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qtimer.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qbasictimer.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QThread \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qthread.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QDateTime \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qdatetime.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QTimer \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qtimer.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qbasictimer.h \
+		../Qt_ZLGUsbCan_demo/zlgDeviceType/usbcan_fd_200u.h \
+		../Qt_ZLGUsbCan_demo/zdbc_x86/zdbc.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/QMessageBox \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qmessagebox.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qdialog.h \
 		debug/moc_predefs.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/bin/moc.exe
 	C:\Qt\Qt5.12.12\5.12.12\mingw73_32\bin\moc.exe $(DEFINES) --include D:/QtProjects/DBC_ZLGUsbCan_demo/build-Qt_ZLGUsbCan_demo-Desktop_Qt_5_12_12_MinGW_32_bit-Debug/debug/moc_predefs.h -IC:/Qt/Qt5.12.12/5.12.12/mingw73_32/mkspecs/win32-g++ -ID:/QtProjects/DBC_ZLGUsbCan_demo/Qt_ZLGUsbCan_demo -ID:/QtProjects/DBC_ZLGUsbCan_demo/Qt_ZLGUsbCan_demo/zlgcan_x86 -ID:/QtProjects/DBC_ZLGUsbCan_demo/build-Qt_ZLGUsbCan_demo-Desktop_Qt_5_12_12_MinGW_32_bit-Debug/debug -IC:/Qt/Qt5.12.12/5.12.12/mingw73_32/include -IC:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets -IC:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui -IC:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtANGLE -IC:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore -I. -IC:/Qt/Qt5.12.12/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++ -IC:/Qt/Qt5.12.12/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.12.12/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/backward -IC:/Qt/Qt5.12.12/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include -IC:/Qt/Qt5.12.12/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include-fixed -IC:/Qt/Qt5.12.12/Tools/mingw730_32/i686-w64-mingw32/include ..\Qt_ZLGUsbCan_demo\mainwindow.h -o debug\moc_mainwindow.cpp
@@ -417,6 +424,49 @@ debug/moc_usbcan_fd_200u.cpp: ../Qt_ZLGUsbCan_demo/zlgDeviceType/usbcan_fd_200u.
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QTimer \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qtimer.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qbasictimer.h \
+		../Qt_ZLGUsbCan_demo/zdbc_x86/zdbc.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/QMessageBox \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qmessagebox.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qtwidgetsglobal.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qtguiglobal.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qtgui-config.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qtwidgets-config.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qdialog.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qwidget.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qwindowdefs.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qwindowdefs_win.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qmargins.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qpaintdevice.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qrect.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qsize.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qpalette.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qcolor.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qrgb.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qrgba64.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qbrush.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qmatrix.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qpolygon.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qregion.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qdatastream.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qline.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qtransform.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qpainterpath.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qimage.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qpixelformat.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qpixmap.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qfont.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qfontmetrics.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qfontinfo.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qsizepolicy.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qcursor.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qkeysequence.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qevent.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qurl.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qurlquery.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qfile.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qfiledevice.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qvector2d.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qtouchdevice.h \
 		debug/moc_predefs.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/bin/moc.exe
 	C:\Qt\Qt5.12.12\5.12.12\mingw73_32\bin\moc.exe $(DEFINES) --include D:/QtProjects/DBC_ZLGUsbCan_demo/build-Qt_ZLGUsbCan_demo-Desktop_Qt_5_12_12_MinGW_32_bit-Debug/debug/moc_predefs.h -IC:/Qt/Qt5.12.12/5.12.12/mingw73_32/mkspecs/win32-g++ -ID:/QtProjects/DBC_ZLGUsbCan_demo/Qt_ZLGUsbCan_demo -ID:/QtProjects/DBC_ZLGUsbCan_demo/Qt_ZLGUsbCan_demo/zlgcan_x86 -ID:/QtProjects/DBC_ZLGUsbCan_demo/build-Qt_ZLGUsbCan_demo-Desktop_Qt_5_12_12_MinGW_32_bit-Debug/debug -IC:/Qt/Qt5.12.12/5.12.12/mingw73_32/include -IC:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets -IC:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui -IC:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtANGLE -IC:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore -I. -IC:/Qt/Qt5.12.12/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++ -IC:/Qt/Qt5.12.12/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.12.12/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/backward -IC:/Qt/Qt5.12.12/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include -IC:/Qt/Qt5.12.12/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include-fixed -IC:/Qt/Qt5.12.12/Tools/mingw730_32/i686-w64-mingw32/include ..\Qt_ZLGUsbCan_demo\zlgDeviceType\usbcan_fd_200u.h -o debug\moc_usbcan_fd_200u.cpp
@@ -551,6 +601,8 @@ debug/main.o: ../Qt_ZLGUsbCan_demo/main.cpp ../Qt_ZLGUsbCan_demo/mainwindow.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qtabwidget.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qicon.h \
+		../Qt_ZLGUsbCan_demo/zlgDeviceType/usbcan_2e_u.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QObject \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QDebug \
 		../Qt_ZLGUsbCan_demo/zlgcan_x86/zlgcan.h \
 		../Qt_ZLGUsbCan_demo/zlgcan_x86/canframe.h \
@@ -558,13 +610,18 @@ debug/main.o: ../Qt_ZLGUsbCan_demo/main.cpp ../Qt_ZLGUsbCan_demo/mainwindow.h \
 		../Qt_ZLGUsbCan_demo/zlgcan_x86/config.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QEventLoop \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qeventloop.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QTimer \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qtimer.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qbasictimer.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QThread \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qthread.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QDateTime \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qdatetime.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QTimer \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qtimer.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qbasictimer.h \
+		../Qt_ZLGUsbCan_demo/zlgDeviceType/usbcan_fd_200u.h \
+		../Qt_ZLGUsbCan_demo/zdbc_x86/zdbc.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/QMessageBox \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qmessagebox.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qdialog.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/QApplication \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qapplication.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qcoreapplication.h \
@@ -680,6 +737,8 @@ debug/mainwindow.o: ../Qt_ZLGUsbCan_demo/mainwindow.cpp ../Qt_ZLGUsbCan_demo/mai
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qtabwidget.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qicon.h \
+		../Qt_ZLGUsbCan_demo/zlgDeviceType/usbcan_2e_u.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QObject \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QDebug \
 		../Qt_ZLGUsbCan_demo/zlgcan_x86/zlgcan.h \
 		../Qt_ZLGUsbCan_demo/zlgcan_x86/canframe.h \
@@ -687,32 +746,19 @@ debug/mainwindow.o: ../Qt_ZLGUsbCan_demo/mainwindow.cpp ../Qt_ZLGUsbCan_demo/mai
 		../Qt_ZLGUsbCan_demo/zlgcan_x86/config.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QEventLoop \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qeventloop.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QTimer \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qtimer.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qbasictimer.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QThread \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qthread.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QDateTime \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qdatetime.h \
-		ui_mainwindow.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QVariant \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/QApplication \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qapplication.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qcoreapplication.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qdesktopwidget.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qguiapplication.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qinputmethod.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/QMenuBar \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qmenubar.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qmenu.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qaction.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qactiongroup.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/QPushButton \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qpushbutton.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qabstractbutton.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/QStatusBar \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qstatusbar.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/QWidget
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QTimer \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qtimer.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qbasictimer.h \
+		../Qt_ZLGUsbCan_demo/zlgDeviceType/usbcan_fd_200u.h \
+		../Qt_ZLGUsbCan_demo/zdbc_x86/zdbc.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/QMessageBox \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qmessagebox.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qdialog.h \
+		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\mainwindow.o ..\Qt_ZLGUsbCan_demo\mainwindow.cpp
 
 debug/usbcan_2e_u.o: ../Qt_ZLGUsbCan_demo/zlgDeviceType/usbcan_2e_u.cpp ../Qt_ZLGUsbCan_demo/zlgDeviceType/usbcan_2e_u.h \
@@ -874,7 +920,50 @@ debug/usbcan_fd_200u.o: ../Qt_ZLGUsbCan_demo/zlgDeviceType/usbcan_fd_200u.cpp ..
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qdatetime.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/QTimer \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qtimer.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qbasictimer.h
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qbasictimer.h \
+		../Qt_ZLGUsbCan_demo/zdbc_x86/zdbc.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/QMessageBox \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qmessagebox.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qtwidgetsglobal.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qtguiglobal.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qtgui-config.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qtwidgets-config.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qdialog.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qwidget.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qwindowdefs.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qwindowdefs_win.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qmargins.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qpaintdevice.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qrect.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qsize.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qpalette.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qcolor.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qrgb.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qrgba64.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qbrush.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qmatrix.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qpolygon.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qregion.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qdatastream.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qline.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qtransform.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qpainterpath.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qimage.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qpixelformat.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qpixmap.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qfont.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qfontmetrics.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qfontinfo.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtWidgets/qsizepolicy.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qcursor.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qkeysequence.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qevent.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qurl.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qurlquery.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qfile.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtCore/qfiledevice.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qvector2d.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_32/include/QtGui/qtouchdevice.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\usbcan_fd_200u.o ..\Qt_ZLGUsbCan_demo\zlgDeviceType\usbcan_fd_200u.cpp
 
 debug/qrc_images.o: debug/qrc_images.cpp 
