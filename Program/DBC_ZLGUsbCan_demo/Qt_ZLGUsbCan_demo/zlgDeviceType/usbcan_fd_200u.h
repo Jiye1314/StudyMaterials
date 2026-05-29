@@ -37,7 +37,7 @@ public:
     bool openDevice_fd_200u();
     bool closeDevice_fd_200u();
     //手动发送
-    bool Send_fd_200u(int length,QStringList data,uint32_t canId);
+    bool Send_fd_200u(int length, QStringList data, uint32_t canId);
     // 接收 CANFD 线程函数
     void thread_task_fd_200u(CHANNEL_HANDLE handle);
     //===================================================================================
@@ -57,6 +57,8 @@ public:
     void thread_task_can(CHANNEL_HANDLE handle);
     //关闭函数
     void closeAllSend();
+    //设置发送类型
+    unsigned char type = 0;
 private:
     //保存设备句柄
     DEVICE_HANDLE deviceKey;

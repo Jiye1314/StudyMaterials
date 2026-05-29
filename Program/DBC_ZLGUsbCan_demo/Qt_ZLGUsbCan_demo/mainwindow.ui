@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>910</width>
-    <height>635</height>
+    <width>970</width>
+    <height>634</height>
    </rect>
   </property>
   <property name="font">
@@ -24,7 +24,7 @@
      <rect>
       <x>20</x>
       <y>20</y>
-      <width>601</width>
+      <width>671</width>
       <height>361</height>
      </rect>
     </property>
@@ -82,7 +82,7 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>640</x>
+      <x>700</x>
       <y>20</y>
       <width>251</width>
       <height>551</height>
@@ -140,6 +140,11 @@
        <item>
         <property name="text">
          <string>数据帧（默认）</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>扩展帧</string>
         </property>
        </item>
       </widget>
@@ -231,7 +236,7 @@
         <string>100</string>
        </property>
        <property name="maxLength">
-        <number>8</number>
+        <number>3</number>
        </property>
        <property name="cursorPosition">
         <number>3</number>
@@ -255,7 +260,7 @@
      <rect>
       <x>22</x>
       <y>392</y>
-      <width>601</width>
+      <width>671</width>
       <height>191</height>
      </rect>
     </property>
@@ -395,7 +400,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>910</width>
+     <width>970</width>
      <height>33</height>
     </rect>
    </property>

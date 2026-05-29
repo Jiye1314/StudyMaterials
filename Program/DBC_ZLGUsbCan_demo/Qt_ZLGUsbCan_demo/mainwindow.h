@@ -62,6 +62,8 @@ private slots:
     //连接中断提醒
     void slotsExceptionStatus();
 
+    void on_comboBox_dataFrame_currentIndexChanged(int index);
+
 private:
 
 

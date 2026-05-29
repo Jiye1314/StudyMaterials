@@ -44,6 +44,7 @@ void MainWindow::on_btn_openDev_clicked()
         // 初始化表格
         initTableForID();
         btnSetEnableTrue();
+        ui->comboBox_dataFrame->setCurrentIndex(0);
     }else
     {
         btnSetEnableFalse();
@@ -133,6 +134,11 @@ void MainWindow::on_btn_send_2_clicked()
     QString dataStr = ui->lineEdit_data->text().trimmed();
     QStringList data = dataStr.split(" ", QString::SkipEmptyParts);
 
+    //从ui读取帧类型
+    unsigned char type = ui->comboBox_dataFrame->currentIndex();
+    if(type == 1)
+        usbC_fd_200u->type = 1;
+
     if(usbC_fd_200u->Send_fd_200u(length,data,canId))
     {
         ui->statusBar->showMessage("发送数据成功！",1000);
@@ -141,6 +147,8 @@ void MainWindow::on_btn_send_2_clicked()
     {
         ui->statusBar->showMessage("发送数据失败！",1000);
     }
+
+    usbC_fd_200u->type = 0;
 }
 
 // 收到帧时更新表格
@@ -180,8 +188,11 @@ void MainWindow::slotsUpdateTableWidget(int channel, int canId, int dlc, const Q
             row = 8;
     }
 
+    unsigned char length = 4;
+    if(ui->comboBox_dataFrame->currentIndex() == 1 && row == 8)
+        length = 8;
     // 转为 QString，保留 0x 前缀 + 固定4位十六进制  手动加上 0x 前缀（最终字符串：0x001A）
-    QString strID = "0x" + QString("%1").arg(canId, 4, 16, QChar('0')).toUpper();
+    QString strID = "0x" + QString("%1").arg(canId, length, 16, QChar('0')).toUpper();
 
 
     ui->tableWidget->setItem(row, 0, new QTableWidgetItem(QString::number(channel)));
@@ -205,7 +216,7 @@ void MainWindow::initTableForID()
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
     ui->tableWidget->setColumnWidth(0, 70);
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Fixed);
-    ui->tableWidget->setColumnWidth(1, 80);
+    ui->tableWidget->setColumnWidth(1, 100);
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Fixed);
     ui->tableWidget->setColumnWidth(2, 70);
     // 其他列自动拉伸
@@ -278,5 +289,14 @@ void MainWindow::slotsExceptionStatus()
     QMessageBox::warning(this,"警告","通讯中断，任务已退出！");
     ui->btn_send->setText("开启定时发送");
     usbC_fd_200u->closeAllSend();
+}
+
+//选择帧类型时触发
+void MainWindow::on_comboBox_dataFrame_currentIndexChanged(int index)
+{
+    if(index == 0)
+        ui->lineEdit_frameID->setMaxLength(3);
+    else
+        ui->lineEdit_frameID->setMaxLength(8);
 }
 

@@ -73,7 +73,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(910, 635);
+        MainWindow->resize(970, 634);
         QFont font;
         font.setPointSize(12);
         MainWindow->setFont(font);
@@ -105,10 +105,10 @@ public:
         QTableWidgetItem *__qtablewidgetitem9 = new QTableWidgetItem();
         tableWidget->setVerticalHeaderItem(4, __qtablewidgetitem9);
         tableWidget->setObjectName(QString::fromUtf8("tableWidget"));
-        tableWidget->setGeometry(QRect(20, 20, 601, 361));
+        tableWidget->setGeometry(QRect(20, 20, 671, 361));
         layoutWidget = new QWidget(centralwidget);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(640, 20, 251, 551));
+        layoutWidget->setGeometry(QRect(700, 20, 251, 551));
         verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
@@ -145,6 +145,7 @@ public:
         verticalLayout->addWidget(label_test_4);
 
         comboBox_dataFrame = new QComboBox(layoutWidget);
+        comboBox_dataFrame->addItem(QString());
         comboBox_dataFrame->addItem(QString());
         comboBox_dataFrame->setObjectName(QString::fromUtf8("comboBox_dataFrame"));
 
@@ -187,7 +188,7 @@ public:
 
         lineEdit_frameID = new QLineEdit(layoutWidget);
         lineEdit_frameID->setObjectName(QString::fromUtf8("lineEdit_frameID"));
-        lineEdit_frameID->setMaxLength(8);
+        lineEdit_frameID->setMaxLength(3);
         lineEdit_frameID->setCursorPosition(3);
 
         verticalLayout->addWidget(lineEdit_frameID);
@@ -199,7 +200,7 @@ public:
 
         layoutWidget1 = new QWidget(centralwidget);
         layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(22, 392, 601, 191));
+        layoutWidget1->setGeometry(QRect(22, 392, 671, 191));
         gridLayout = new QGridLayout(layoutWidget1);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
@@ -286,7 +287,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 910, 33));
+        menubar->setGeometry(QRect(0, 0, 970, 33));
         MainWindow->setMenuBar(menubar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
@@ -329,6 +330,7 @@ public:
 
         label_test_4->setText(QApplication::translate("MainWindow", "\345\270\247\346\240\274\345\274\217\357\274\232", nullptr));
         comboBox_dataFrame->setItemText(0, QApplication::translate("MainWindow", "\346\225\260\346\215\256\345\270\247\357\274\210\351\273\230\350\256\244\357\274\211", nullptr));
+        comboBox_dataFrame->setItemText(1, QApplication::translate("MainWindow", "\346\211\251\345\261\225\345\270\247", nullptr));
 
         label_test_5->setText(QApplication::translate("MainWindow", "\346\225\260\346\215\256\351\225\277\345\272\246:", nullptr));
         comboBox_dataLength->setItemText(0, QApplication::translate("MainWindow", "8\357\274\210\351\273\230\350\256\244\357\274\211", nullptr));

@@ -117,8 +117,8 @@ bool USBCAN_FD_200U::openDevice_fd_200u()
         t->start();
 
     }
+    ZCAN_ClearBuffer(deviceKey);
     g_thd_run_fd_200u = 1;
-
     return true;
 }
 
@@ -362,7 +362,7 @@ bool USBCAN_FD_200U::Send_fd_200u(int length, QStringList data, uint32_t canId)
     ZCAN_Transmit_Data frame;
     memset(&frame, 0, sizeof(frame));
 
-    frame.frame.can_id = MAKE_CAN_ID(canId, 0, 0, 0); // SYNC ID
+    frame.frame.can_id = MAKE_CAN_ID(canId, type, 0, 0); // SYNC ID
     frame.frame.can_dlc = length;
     frame.transmit_type = 0;    //发送模式 ：正常发送
 
@@ -438,7 +438,7 @@ void USBCAN_FD_200U::thread_task_fd_200u(CHANNEL_HANDLE handle)
 //            qDebug()<<"当前时间："<<QDateTime::currentDateTime();
 //            emit signalsSendNum(++thcount);
 
-            //将内容更新到 UI
+            //记录内容
             int canId = GET_ID(data[i].frame.can_id);
             int dlc = data[i].frame.can_dlc;
             // 组装数据为 QByteArray
@@ -523,7 +523,7 @@ void USBCAN_FD_200U::initAllTimer()
     // 启动状态检测定时器
     m_timerStatus = new QTimer(this);
     connect(m_timerStatus, &QTimer::timeout, this, &USBCAN_FD_200U::onTimerStatus);
-    m_timerStatus->start(1); // 1ms 检测一次
+    m_timerStatus->start(1000); // 1000ms 检测一次
 }
 
 void USBCAN_FD_200U::slotsSetLSpeedSet1(double num)
