@@ -23,7 +23,7 @@ signals:
     // 将收到的 CAN 帧数据发给 UI 显示
     void signalsReceivedFrame(int channel,int canId, int dlc, const QByteArray &data);
     //通讯中断提醒信号
-    void signalsExceptionStatus();
+    void signalsExceptionStatus(int i);
 
 
 public slots:
@@ -53,8 +53,6 @@ public:
     void buildTractionPDOFFrame(ZCAN_Transmit_Data &can, int messCountF);
     // 定时发送CAN报文函数
     bool timerSend_can();
-    // 接收 CAN 线程函数
-    void thread_task_can(CHANNEL_HANDLE handle);
     //关闭函数
     void closeAllSend();
     //设置发送类型

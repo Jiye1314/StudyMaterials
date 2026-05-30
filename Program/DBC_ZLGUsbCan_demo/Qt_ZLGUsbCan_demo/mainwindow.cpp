@@ -120,9 +120,7 @@ void MainWindow::btnSetEnableFalse()
 void MainWindow::on_btn_send_2_clicked()
 {
     //从Ui读取并解析数据长度 直接用显示文字转成 int
-    int length = ui->comboBox_dataLength->currentText().toInt();
-    if(ui->comboBox_dataLength->currentIndex() == 0)
-        length = 8;
+    int length = ui->comboBox_dataLength->currentIndex() + 1;
 
     //从UI读取并解析帧ID
     QString idStr = ui->lineEdit_frameID->text().trimmed();
@@ -284,11 +282,29 @@ void MainWindow::on_lineEdit_data_textEdited(const QString &arg1)
 }
 
 //中断异常提醒
-void MainWindow::slotsExceptionStatus()
+void MainWindow::slotsExceptionStatus(int i)
 {
-    QMessageBox::warning(this,"警告","通讯中断，任务已退出！");
-    ui->btn_send->setText("开启定时发送");
-    usbC_fd_200u->closeAllSend();
+    static int num = 0;
+    switch (i)
+    {
+    case -1:
+        ui->statusBar->showMessage(QString("usb设备连接已断开！%1").arg(num++),1000);
+        break;
+    case -2:
+        ui->statusBar->showMessage(QString("CAN 控制器总线关闭！%1").arg(num++),1000);
+        break;
+    case -3:
+        ui->statusBar->showMessage(QString("CAN 控制器消极错误！%1").arg(num++),1000);
+        break;
+    case -4:
+        ui->statusBar->showMessage(QString("CAN 控制器错误报警！%1").arg(num++),1000);
+        break;
+    case -5:
+        ui->statusBar->showMessage(QString("CAN 控制器处于 BusOff 状态！%1").arg(num++),1000);
+        break;
+    default:
+        return;
+    }
 }
 
 //选择帧类型时触发

@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[28];
-    char stringdata0[461];
+    QByteArrayData data[29];
+    char stringdata0[463];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -58,7 +58,8 @@ QT_MOC_LITERAL(23, 336, 28), // "on_btn_setL_speedSet_clicked"
 QT_MOC_LITERAL(24, 365, 27), // "on_lineEdit_data_textEdited"
 QT_MOC_LITERAL(25, 393, 4), // "arg1"
 QT_MOC_LITERAL(26, 398, 20), // "slotsExceptionStatus"
-QT_MOC_LITERAL(27, 419, 41) // "on_comboBox_dataFrame_current..."
+QT_MOC_LITERAL(27, 419, 1), // "i"
+QT_MOC_LITERAL(28, 421, 41) // "on_comboBox_dataFrame_current..."
 
     },
     "MainWindow\0signalLSpeedSetNum\0\0"
@@ -72,7 +73,7 @@ QT_MOC_LITERAL(27, 419, 41) // "on_comboBox_dataFrame_current..."
     "on_comboBox_currentIndexChanged\0index\0"
     "on_btn_setL_speedSet_clicked\0"
     "on_lineEdit_data_textEdited\0arg1\0"
-    "slotsExceptionStatus\0"
+    "slotsExceptionStatus\0i\0"
     "on_comboBox_dataFrame_currentIndexChanged"
 };
 #undef QT_MOC_LITERAL
@@ -108,8 +109,8 @@ static const uint qt_meta_data_MainWindow[] = {
       21,    1,  127,    2, 0x08 /* Private */,
       23,    0,  130,    2, 0x08 /* Private */,
       24,    1,  131,    2, 0x08 /* Private */,
-      26,    0,  134,    2, 0x08 /* Private */,
-      27,    1,  135,    2, 0x08 /* Private */,
+      26,    1,  134,    2, 0x08 /* Private */,
+      28,    1,  137,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int,    3,
@@ -129,7 +130,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::Int,   22,
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString,   25,
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,   27,
     QMetaType::Void, QMetaType::Int,   22,
 
        0        // eod
@@ -156,7 +157,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 12: _t->on_comboBox_currentIndexChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 13: _t->on_btn_setL_speedSet_clicked(); break;
         case 14: _t->on_lineEdit_data_textEdited((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 15: _t->slotsExceptionStatus(); break;
+        case 15: _t->slotsExceptionStatus((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 16: _t->on_comboBox_dataFrame_currentIndexChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }

@@ -11,13 +11,11 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    zlgDeviceType/usbcan_2e_u.cpp \
     zlgDeviceType/usbcan_fd_200u.cpp
 
 HEADERS += \
     mainwindow.h \
     zdbc_x86/zdbc.h \
-    zlgDeviceType/usbcan_2e_u.h \
     zlgDeviceType/usbcan_fd_200u.h \
     zlgcan_x86/canframe.h \
     zlgcan_x86/config.h \

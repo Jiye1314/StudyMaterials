@@ -90,9 +90,9 @@ bool USBCAN_FD_200U::openDevice_fd_200u()
         sprintf_s(path, "%d/tx_timeout", i);
         ZCAN_SetValue(deviceKey, path, "100");
 
-        //        // 软件环回模式（自发自收，无需外部接线）
-        //        sprintf(path, "%d/mode", i);
-        //        ZCAN_SetValue(deviceKey, path, "1"); // 1 = 环回模式
+//                // 软件环回模式（自发自收，无需外部接线）
+//                sprintf(path, "%d/mode", i);
+//                ZCAN_SetValue(deviceKey, path, "1"); // 1 = 环回模式
 
         //发送失败重试策略
         ZCAN_SetValue(deviceKey, "0/set_tx_retry_policy", "1"); //1 -发送失败不重传 2 -发送失败重传，直到总线关闭
@@ -335,7 +335,7 @@ bool USBCAN_FD_200U::timerSend_can()
         buildTractionPDO4Frame(transmitObj.obj);
         ZCAN_SetValue(deviceKey,path.toStdString().c_str(),(const char*)&transmitObj);
 
-        //开启两个定时器
+        //开启三个定时器
         m_timerLiftPDO->start();
         m_timerTractionPDO->start();
         m_timerStatus->start();
@@ -457,31 +457,6 @@ void USBCAN_FD_200U::thread_task_fd_200u(CHANNEL_HANDLE handle)
 }
 
 //===================================================================================
-void USBCAN_FD_200U::thread_task_can(CHANNEL_HANDLE handle)
-{
-    //    int nChnl = (unsigned int)handle &0x000000FF;
-
-    //    qDebug()<< "chnl: " << nChnl << "线程启动, handle:0x" << handle;
-
-    //    ZCAN_Receive_Data data[100] = {};
-    //    while (g_thd_run_fd_200u)
-    //    {
-    //        int count = ZCAN_GetReceiveNum(handle,0);        //获取CAN报文数量
-    //        while(g_thd_run_fd_200u && count > 0)
-    //        {
-    //            int count = ZCAN_Receive(handle,data,100,10);
-    //            for(int i=0;i<count;i++)
-    //            {
-    //                qDebug()<<"CHNL:"<<nChnl<<"返回 can ID:0x";
-    //                qDebug()<<data[i].frame.can_id;
-    //            }
-    //            count -= count;
-    //        }
-
-    //        QThread::sleep(100);
-    //    }
-    //    qDebug()<<"chnl: "<<nChnl<<" thread 退出";
-}
 
 //关闭发送
 void USBCAN_FD_200U::closeAllSend()
@@ -500,6 +475,10 @@ void USBCAN_FD_200U::closeAllSend()
     if(m_timerTractionPDO)
     {
         m_timerTractionPDO->stop();
+    }
+    if(m_timerStatus)
+    {
+        m_timerStatus->stop();
     }
 
     // 计数器归零
@@ -523,7 +502,7 @@ void USBCAN_FD_200U::initAllTimer()
     // 启动状态检测定时器
     m_timerStatus = new QTimer(this);
     connect(m_timerStatus, &QTimer::timeout, this, &USBCAN_FD_200U::onTimerStatus);
-    m_timerStatus->start(1000); // 1000ms 检测一次
+    m_timerStatus->setInterval(1000); // 1000ms 检测一次
 }
 
 void USBCAN_FD_200U::slotsSetLSpeedSet1(double num)
@@ -562,6 +541,7 @@ void USBCAN_FD_200U::onTimerTractionPDO()
 //定时器发送/接收状态
 void USBCAN_FD_200U::onTimerStatus()
 {
+    int i = 0;
     // 1：检查设备在线状态
     UINT online = ZCAN_IsDeviceOnLine(deviceKey);
     if (online == STATUS_OFFLINE)
@@ -569,7 +549,8 @@ void USBCAN_FD_200U::onTimerStatus()
         qDebug() << "usb设备连接已断开！";
         handleDisconnect();
         ZCAN_ClearBuffer(deviceKey);
-        emit signalsExceptionStatus();
+        i = -1;
+        emit signalsExceptionStatus(i);
         return;
     }
 
@@ -577,31 +558,33 @@ void USBCAN_FD_200U::onTimerStatus()
     ZCAN_CHANNEL_ERR_INFO errInfo;
     if (ZCAN_ReadChannelErrInfo(channelKey[m_txChannel], &errInfo) == STATUS_OK)
     {
+
         // BusOff 检测
         if (errInfo.error_code == ZCAN_ERROR_CAN_BUSOFF)
         {
             qDebug() << "CAN 控制器总线关闭";
             handleDisconnect();
             ZCAN_ClearBuffer(deviceKey);
-            emit signalsExceptionStatus();
+            i = -2;
+            emit signalsExceptionStatus(i);
             return;
         }
         // Error Passive
         if (errInfo.error_code == ZCAN_ERROR_CAN_PASSIVE)
         {
             qDebug() << "CAN 控制器消极错误";
-            handleDisconnect();
             ZCAN_ClearBuffer(deviceKey);
-            emit signalsExceptionStatus();
+            i = -3;
+            emit signalsExceptionStatus(i);
             return;
         }
         // Error Warning
         if (errInfo.error_code == ZCAN_ERROR_CAN_ERRALARM)
         {
             qDebug() << "CAN 控制器错误报警";
-            handleDisconnect();
             ZCAN_ClearBuffer(deviceKey);
-            emit signalsExceptionStatus();
+            i = -4;
+            emit signalsExceptionStatus(i);
             return;
         }
     }
@@ -615,12 +598,13 @@ void USBCAN_FD_200U::onTimerStatus()
             qDebug() << "CAN 控制器处于 BusOff 状态";
             handleDisconnect();
             ZCAN_ClearBuffer(deviceKey);
-            emit signalsExceptionStatus();
+            i = -5;
+            emit signalsExceptionStatus(i);
             return;
         }
     }
     //每循环一次清除一次状态
-    ZCAN_ClearBuffer(deviceKey);
+//    ZCAN_ClearBuffer(deviceKey);
 }
 
 // 处理断开连接

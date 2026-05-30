@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "zlgDeviceType/usbcan_2e_u.h"
 #include "zlgDeviceType/usbcan_fd_200u.h"
 #include <QMainWindow>
 #include <QDebug>
@@ -60,7 +59,7 @@ private slots:
     void on_lineEdit_data_textEdited(const QString &arg1);
 
     //连接中断提醒
-    void slotsExceptionStatus();
+    void slotsExceptionStatus(int i);
 
     void on_comboBox_dataFrame_currentIndexChanged(int index);
 
@@ -69,7 +68,6 @@ private:
 
 private:
     Ui::MainWindow *ui;
-    USBCAN_2E_U *usbC_2e_u;
     USBCAN_FD_200U *usbC_fd_200u;
 
     // QMap: CAN ID → 接收次数

@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_USBCAN_FD_200U_t {
-    QByteArrayData data[15];
-    char stringdata0[189];
+    QByteArrayData data[16];
+    char stringdata0[191];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -41,16 +41,17 @@ QT_MOC_LITERAL(6, 64, 5), // "canId"
 QT_MOC_LITERAL(7, 70, 3), // "dlc"
 QT_MOC_LITERAL(8, 74, 4), // "data"
 QT_MOC_LITERAL(9, 79, 22), // "signalsExceptionStatus"
-QT_MOC_LITERAL(10, 102, 18), // "slotsSetLSpeedSet1"
-QT_MOC_LITERAL(11, 121, 19), // "slotsSetLPWMenable1"
-QT_MOC_LITERAL(12, 141, 14), // "onTimerLiftPDO"
-QT_MOC_LITERAL(13, 156, 18), // "onTimerTractionPDO"
-QT_MOC_LITERAL(14, 175, 13) // "onTimerStatus"
+QT_MOC_LITERAL(10, 102, 1), // "i"
+QT_MOC_LITERAL(11, 104, 18), // "slotsSetLSpeedSet1"
+QT_MOC_LITERAL(12, 123, 19), // "slotsSetLPWMenable1"
+QT_MOC_LITERAL(13, 143, 14), // "onTimerLiftPDO"
+QT_MOC_LITERAL(14, 158, 18), // "onTimerTractionPDO"
+QT_MOC_LITERAL(15, 177, 13) // "onTimerStatus"
 
     },
     "USBCAN_FD_200U\0signalsSendNum\0\0num\0"
     "signalsReceivedFrame\0channel\0canId\0"
-    "dlc\0data\0signalsExceptionStatus\0"
+    "dlc\0data\0signalsExceptionStatus\0i\0"
     "slotsSetLSpeedSet1\0slotsSetLPWMenable1\0"
     "onTimerLiftPDO\0onTimerTractionPDO\0"
     "onTimerStatus"
@@ -73,19 +74,19 @@ static const uint qt_meta_data_USBCAN_FD_200U[] = {
  // signals: name, argc, parameters, tag, flags
        1,    1,   54,    2, 0x06 /* Public */,
        4,    4,   57,    2, 0x06 /* Public */,
-       9,    0,   66,    2, 0x06 /* Public */,
+       9,    1,   66,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      10,    1,   67,    2, 0x0a /* Public */,
-      11,    1,   70,    2, 0x0a /* Public */,
-      12,    0,   73,    2, 0x0a /* Public */,
-      13,    0,   74,    2, 0x0a /* Public */,
-      14,    0,   75,    2, 0x0a /* Public */,
+      11,    1,   69,    2, 0x0a /* Public */,
+      12,    1,   72,    2, 0x0a /* Public */,
+      13,    0,   75,    2, 0x0a /* Public */,
+      14,    0,   76,    2, 0x0a /* Public */,
+      15,    0,   77,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int,    3,
     QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int, QMetaType::QByteArray,    5,    6,    7,    8,
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,   10,
 
  // slots: parameters
     QMetaType::Void, QMetaType::Double,    3,
@@ -105,7 +106,7 @@ void USBCAN_FD_200U::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         switch (_id) {
         case 0: _t->signalsSendNum((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 1: _t->signalsReceivedFrame((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< const QByteArray(*)>(_a[4]))); break;
-        case 2: _t->signalsExceptionStatus(); break;
+        case 2: _t->signalsExceptionStatus((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 3: _t->slotsSetLSpeedSet1((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 4: _t->slotsSetLPWMenable1((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 5: _t->onTimerLiftPDO(); break;
@@ -130,7 +131,7 @@ void USBCAN_FD_200U::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
             }
         }
         {
-            using _t = void (USBCAN_FD_200U::*)();
+            using _t = void (USBCAN_FD_200U::*)(int );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&USBCAN_FD_200U::signalsExceptionStatus)) {
                 *result = 2;
                 return;
@@ -194,9 +195,10 @@ void USBCAN_FD_200U::signalsReceivedFrame(int _t1, int _t2, int _t3, const QByte
 }
 
 // SIGNAL 2
-void USBCAN_FD_200U::signalsExceptionStatus()
+void USBCAN_FD_200U::signalsExceptionStatus(int _t1)
 {
-    QMetaObject::activate(this, &staticMetaObject, 2, nullptr);
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 2, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

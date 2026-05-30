@@ -73,7 +73,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(970, 634);
+        MainWindow->resize(986, 650);
         QFont font;
         font.setPointSize(12);
         MainWindow->setFont(font);
@@ -177,7 +177,7 @@ public:
         lineEdit_data = new QLineEdit(layoutWidget);
         lineEdit_data->setObjectName(QString::fromUtf8("lineEdit_data"));
         lineEdit_data->setMaxLength(23);
-        lineEdit_data->setCursorPosition(23);
+        lineEdit_data->setCursorPosition(2);
 
         verticalLayout->addWidget(lineEdit_data);
 
@@ -189,7 +189,7 @@ public:
         lineEdit_frameID = new QLineEdit(layoutWidget);
         lineEdit_frameID->setObjectName(QString::fromUtf8("lineEdit_frameID"));
         lineEdit_frameID->setMaxLength(3);
-        lineEdit_frameID->setCursorPosition(3);
+        lineEdit_frameID->setCursorPosition(2);
 
         verticalLayout->addWidget(lineEdit_frameID);
 
@@ -287,7 +287,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 970, 33));
+        menubar->setGeometry(QRect(0, 0, 986, 33));
         MainWindow->setMenuBar(menubar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
@@ -321,7 +321,7 @@ public:
         ___qtablewidgetitem8->setText(QApplication::translate("MainWindow", "4", nullptr));
         QTableWidgetItem *___qtablewidgetitem9 = tableWidget->verticalHeaderItem(4);
         ___qtablewidgetitem9->setText(QApplication::translate("MainWindow", "5", nullptr));
-        label_test->setText(QApplication::translate("MainWindow", "\346\255\243\345\270\270\345\217\221\351\200\201", nullptr));
+        label_test->setText(QApplication::translate("MainWindow", "\345\217\221\351\200\201\346\265\213\350\257\225\346\225\260\346\215\256\357\274\210\344\270\245\347\246\201\344\271\261\345\217\221\357\274\211", nullptr));
         label_test_2->setText(QApplication::translate("MainWindow", "\351\200\232\351\201\223\357\274\232", nullptr));
         comboBox_channel->setItemText(0, QApplication::translate("MainWindow", "0\357\274\210\351\273\230\350\256\244\357\274\211", nullptr));
 
@@ -333,31 +333,31 @@ public:
         comboBox_dataFrame->setItemText(1, QApplication::translate("MainWindow", "\346\211\251\345\261\225\345\270\247", nullptr));
 
         label_test_5->setText(QApplication::translate("MainWindow", "\346\225\260\346\215\256\351\225\277\345\272\246:", nullptr));
-        comboBox_dataLength->setItemText(0, QApplication::translate("MainWindow", "8\357\274\210\351\273\230\350\256\244\357\274\211", nullptr));
-        comboBox_dataLength->setItemText(1, QApplication::translate("MainWindow", "7", nullptr));
-        comboBox_dataLength->setItemText(2, QApplication::translate("MainWindow", "6", nullptr));
-        comboBox_dataLength->setItemText(3, QApplication::translate("MainWindow", "5", nullptr));
-        comboBox_dataLength->setItemText(4, QApplication::translate("MainWindow", "4", nullptr));
-        comboBox_dataLength->setItemText(5, QApplication::translate("MainWindow", "3", nullptr));
-        comboBox_dataLength->setItemText(6, QApplication::translate("MainWindow", "2", nullptr));
-        comboBox_dataLength->setItemText(7, QApplication::translate("MainWindow", "1", nullptr));
+        comboBox_dataLength->setItemText(0, QApplication::translate("MainWindow", "1\357\274\210\351\273\230\350\256\244\357\274\211", nullptr));
+        comboBox_dataLength->setItemText(1, QApplication::translate("MainWindow", "2", nullptr));
+        comboBox_dataLength->setItemText(2, QApplication::translate("MainWindow", "3", nullptr));
+        comboBox_dataLength->setItemText(3, QApplication::translate("MainWindow", "4", nullptr));
+        comboBox_dataLength->setItemText(4, QApplication::translate("MainWindow", "5", nullptr));
+        comboBox_dataLength->setItemText(5, QApplication::translate("MainWindow", "6", nullptr));
+        comboBox_dataLength->setItemText(6, QApplication::translate("MainWindow", "7", nullptr));
+        comboBox_dataLength->setItemText(7, QApplication::translate("MainWindow", "8", nullptr));
 
         label_test_6->setText(QApplication::translate("MainWindow", "\346\225\260\346\215\256\357\274\2320x", nullptr));
-        lineEdit_data->setText(QApplication::translate("MainWindow", "00 11 22 33 44 55 66 77", nullptr));
-        lineEdit_data->setPlaceholderText(QApplication::translate("MainWindow", "00 11 22 33 44 55 66 77", nullptr));
+        lineEdit_data->setText(QApplication::translate("MainWindow", "00", nullptr));
+        lineEdit_data->setPlaceholderText(QApplication::translate("MainWindow", "00", nullptr));
         label_test_7->setText(QApplication::translate("MainWindow", "\345\270\247ID\357\274\2320x", nullptr));
-        lineEdit_frameID->setText(QApplication::translate("MainWindow", "100", nullptr));
-        lineEdit_frameID->setPlaceholderText(QApplication::translate("MainWindow", "100", nullptr));
-        btn_send_2->setText(QApplication::translate("MainWindow", "\345\217\221\351\200\201", nullptr));
-        comboBox->setItemText(0, QApplication::translate("MainWindow", "1", nullptr));
-        comboBox->setItemText(1, QApplication::translate("MainWindow", "0", nullptr));
+        lineEdit_frameID->setText(QApplication::translate("MainWindow", "80", nullptr));
+        lineEdit_frameID->setPlaceholderText(QApplication::translate("MainWindow", "80", nullptr));
+        btn_send_2->setText(QApplication::translate("MainWindow", "\345\217\221\351\200\201\346\265\213\350\257\225\346\225\260\346\215\256", nullptr));
+        comboBox->setItemText(0, QApplication::translate("MainWindow", "0", nullptr));
+        comboBox->setItemText(1, QApplication::translate("MainWindow", "1", nullptr));
 
         btn_send->setText(QApplication::translate("MainWindow", "\345\274\200\345\220\257\345\256\232\346\227\266\345\217\221\351\200\201", nullptr));
         label_2->setText(QApplication::translate("MainWindow", "\346\254\241", nullptr));
         label_L_PWMenable1->setText(QApplication::translate("MainWindow", "L-PWMenable1\357\274\232", nullptr));
         btn_setL_speedSet->setText(QApplication::translate("MainWindow", "\350\256\276\347\275\256\350\275\254\346\225\260", nullptr));
         btn_closeDev->setText(QApplication::translate("MainWindow", "\345\205\263\351\227\255\350\256\276\345\244\207", nullptr));
-        label_3->setText(QApplication::translate("MainWindow", "\345\275\223\345\211\215\350\275\254\346\225\260\344\270\272\357\274\232", nullptr));
+        label_3->setText(QApplication::translate("MainWindow", "\345\275\223\345\211\215\350\256\276\347\275\256\350\275\254\346\225\260\344\270\272\357\274\232", nullptr));
         label_4->setText(QApplication::translate("MainWindow", "rpm", nullptr));
         lineEdit_nowrpm->setText(QApplication::translate("MainWindow", "0", nullptr));
         label_L_speedSet1->setText(QApplication::translate("MainWindow", "L-speedSet1\357\274\232", nullptr));
