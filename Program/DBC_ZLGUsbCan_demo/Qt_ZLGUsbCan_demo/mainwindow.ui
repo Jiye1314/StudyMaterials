@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>986</width>
-    <height>650</height>
+    <width>1026</width>
+    <height>653</height>
    </rect>
   </property>
   <property name="font">
@@ -24,7 +24,7 @@
      <rect>
       <x>20</x>
       <y>20</y>
-      <width>671</width>
+      <width>731</width>
       <height>361</height>
      </rect>
     </property>
@@ -55,7 +55,7 @@
     </row>
     <column>
      <property name="text">
-      <string>通道</string>
+      <string>时间</string>
      </property>
     </column>
     <column>
@@ -82,10 +82,10 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>700</x>
+      <x>760</x>
       <y>20</y>
       <width>251</width>
-      <height>551</height>
+      <height>561</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -260,7 +260,7 @@
      <rect>
       <x>22</x>
       <y>392</y>
-      <width>671</width>
+      <width>731</width>
       <height>191</height>
      </rect>
     </property>
@@ -400,7 +400,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>986</width>
+     <width>1026</width>
      <height>33</height>
     </rect>
    </property>

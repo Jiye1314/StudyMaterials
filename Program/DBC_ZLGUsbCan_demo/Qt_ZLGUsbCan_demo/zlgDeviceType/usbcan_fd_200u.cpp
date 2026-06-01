@@ -109,14 +109,27 @@ bool USBCAN_FD_200U::openDevice_fd_200u()
         }
 
 
-        // 启动接收线程
-        QThread *t = QThread::create([=]() {
-            thread_task_fd_200u(channelKey[i]);
-        });
-        thd_handle.append(t);
-        t->start();
+//        // 启动接收线程
+//        QThread *t = QThread::create([=]() {
+//            thread_task_fd_200u(channelKey[i]);
+//        });
+//        thd_handle.append(t);
+//        t->start();
 
     }
+            // 启动接收线程 0
+            QThread *t0 = QThread::create([=]() {
+                thread_task_fd_200u(channelKey[0]);
+            });
+            thd_handle.append(t0);
+            t0->start();
+            // 启动接收线程 1
+            QThread *t1 = QThread::create([=]() {
+                thread_task_fd_200u(channelKey[1]);
+            });
+            thd_handle.append(t1);
+            t1->start();
+
     ZCAN_ClearBuffer(deviceKey);
     g_thd_run_fd_200u = 1;
     return true;
@@ -127,7 +140,7 @@ bool USBCAN_FD_200U::openDevice_fd_200u()
 bool USBCAN_FD_200U::closeDevice_fd_200u()
 {
     closeAllSend();
-
+    idcount = 0;
     g_thd_run_fd_200u = 0;
 
     //关闭线程
@@ -505,7 +518,7 @@ void USBCAN_FD_200U::initAllTimer()
     m_timerStatus->setInterval(1000); // 1000ms 检测一次
 }
 
-void USBCAN_FD_200U::slotsSetLSpeedSet1(double num)
+void USBCAN_FD_200U::slotsSetLSpeedSet1(int num)
 {
     L_speedSet1 = num;
 }
@@ -542,6 +555,7 @@ void USBCAN_FD_200U::onTimerTractionPDO()
 void USBCAN_FD_200U::onTimerStatus()
 {
     int i = 0;
+    static int num = 1;
     // 1：检查设备在线状态
     UINT online = ZCAN_IsDeviceOnLine(deviceKey);
     if (online == STATUS_OFFLINE)
@@ -550,7 +564,7 @@ void USBCAN_FD_200U::onTimerStatus()
         handleDisconnect();
         ZCAN_ClearBuffer(deviceKey);
         i = -1;
-        emit signalsExceptionStatus(i);
+        emit signalsExceptionStatus(i,num++);
         return;
     }
 
@@ -566,7 +580,7 @@ void USBCAN_FD_200U::onTimerStatus()
             handleDisconnect();
             ZCAN_ClearBuffer(deviceKey);
             i = -2;
-            emit signalsExceptionStatus(i);
+            emit signalsExceptionStatus(i,num++);
             return;
         }
         // Error Passive
@@ -575,7 +589,7 @@ void USBCAN_FD_200U::onTimerStatus()
             qDebug() << "CAN 控制器消极错误";
             ZCAN_ClearBuffer(deviceKey);
             i = -3;
-            emit signalsExceptionStatus(i);
+            emit signalsExceptionStatus(i,num++);
             return;
         }
         // Error Warning
@@ -584,7 +598,7 @@ void USBCAN_FD_200U::onTimerStatus()
             qDebug() << "CAN 控制器错误报警";
             ZCAN_ClearBuffer(deviceKey);
             i = -4;
-            emit signalsExceptionStatus(i);
+            emit signalsExceptionStatus(i,num++);
             return;
         }
     }
@@ -599,11 +613,13 @@ void USBCAN_FD_200U::onTimerStatus()
             handleDisconnect();
             ZCAN_ClearBuffer(deviceKey);
             i = -5;
-            emit signalsExceptionStatus(i);
+            emit signalsExceptionStatus(i,num++);
             return;
         }
     }
     //每循环一次清除一次状态
+    if(i==0)
+        num = 1;
 //    ZCAN_ClearBuffer(deviceKey);
 }
 

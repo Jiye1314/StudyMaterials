@@ -23,11 +23,11 @@ signals:
     // 将收到的 CAN 帧数据发给 UI 显示
     void signalsReceivedFrame(int channel,int canId, int dlc, const QByteArray &data);
     //通讯中断提醒信号
-    void signalsExceptionStatus(int i);
+    void signalsExceptionStatus(int i,int num);
 
 
 public slots:
-    void slotsSetLSpeedSet1(double num);
+    void slotsSetLSpeedSet1(int num);
     void slotsSetLPWMenable1(int num);
     void onTimerLiftPDO();      // LiftPDO1 定时回调
     void onTimerTractionPDO();  // TractionPDOF 定时回调
@@ -70,7 +70,7 @@ private:
     QVector<QThread*> thd_handle;
 
     int L_speedSet1 = 0;
-    int L_PWMenable1 = 1;
+    int L_PWMenable1 = 0;
 
     QTimer *m_timerLiftPDO;     // LiftPDO1 定时器 (10ms)
     QTimer *m_timerTractionPDO; // TractionPDOF 定时器 (2ms)

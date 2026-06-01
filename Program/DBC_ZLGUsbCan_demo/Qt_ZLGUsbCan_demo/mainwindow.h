@@ -59,7 +59,7 @@ private slots:
     void on_lineEdit_data_textEdited(const QString &arg1);
 
     //连接中断提醒
-    void slotsExceptionStatus(int i);
+    void slotsExceptionStatus(int i, int num);
 
     void on_comboBox_dataFrame_currentIndexChanged(int index);
 
@@ -72,5 +72,9 @@ private:
 
     // QMap: CAN ID → 接收次数
     QMap<int, int> m_frameCountMap;
+    // 静态映射表：自动给新ID分配行号，不写死任何ID
+    QMap<int, int> s_canIdToRow;
+    int s_nextRow = 0;  // 自动递增行号
+
 };
 #endif // MAINWINDOW_H

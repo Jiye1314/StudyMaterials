@@ -45,7 +45,8 @@ void MainWindow::on_btn_openDev_clicked()
         initTableForID();
         btnSetEnableTrue();
         ui->comboBox_dataFrame->setCurrentIndex(0);
-    }else
+    }
+    else
     {
         btnSetEnableFalse();
     }
@@ -67,7 +68,11 @@ void MainWindow::on_btn_send_clicked()
 
 void MainWindow::on_btn_closeDev_clicked()
 {
+    //将速度和使能至 0
     ui->spinBox->setValue(0);
+    ui->comboBox->setCurrentIndex(0);
+    ui->lineEdit_num->setText(QString::number(0));
+    //触发设置速度将速度改 0
     on_btn_setL_speedSet_clicked();
     if(usbC_fd_200u->closeDevice_fd_200u())
     {
@@ -155,36 +160,19 @@ void MainWindow::slotsUpdateTableWidget(int channel, int canId, int dlc, const Q
 
     m_frameCountMap[canId]++;
 
-    int row;
-    switch (canId)
-    {
-        case 0x0182:
-            row = 0;
-            break;
-        case 0x0081:
-            row = 1;
-            break;
-        case 0x0080:
-            row = 2;
-            break;
-        case 0x00FF:
-            row = 3;
-            break;
-        case 0x0701:
-            row = 4;
-            break;
-        case 0x0702:
-            row = 5;
-            break;
-        case 0x00:
-            row = 6;
-            break;
-        case 0x0481:
-            row = 7;
-            break;
-        default:
-            row = 8;
-    }
+    // ===================== 动态 QMap 替换 switch =====================
+        int row;
+        // 查找ID是否已存在
+        if (s_canIdToRow.contains(canId)) {
+            row = s_canIdToRow[canId];
+        } else {
+            // 新ID：分配新行号，并记录到映射表
+            row = s_nextRow++;
+            s_canIdToRow[canId] = row;
+            // 自动插入一行
+            ui->tableWidget->insertRow(row);
+        }
+        // ===============================================================
 
     unsigned char length = 4;
     if(ui->comboBox_dataFrame->currentIndex() == 1 && row == 8)
@@ -193,7 +181,7 @@ void MainWindow::slotsUpdateTableWidget(int channel, int canId, int dlc, const Q
     QString strID = "0x" + QString("%1").arg(canId, length, 16, QChar('0')).toUpper();
 
 
-    ui->tableWidget->setItem(row, 0, new QTableWidgetItem(QString::number(channel)));
+    ui->tableWidget->setItem(row, 0, new QTableWidgetItem(QTime::currentTime().toString("HH:mm:ss")));
     ui->tableWidget->setItem(row, 1, new QTableWidgetItem(strID));
     ui->tableWidget->setItem(row, 2, new QTableWidgetItem(QString::number(dlc)));
     ui->tableWidget->setItem(row, 3, new QTableWidgetItem(QString(data)));
@@ -203,16 +191,16 @@ void MainWindow::slotsUpdateTableWidget(int channel, int canId, int dlc, const Q
 //初始化表格
 void MainWindow::initTableForID()
 {
-    ui->tableWidget->setRowCount(9); // 9 行
+    ui->tableWidget->setRowCount(0); // 0 行
     ui->tableWidget->setColumnCount(5); // 通道、ID、DLC、数据、次数
 
     QStringList headers;
-    headers << "发送通道" << "报文ID" << "报文长度" << "数据" << "接收次数";
+    headers << "接收时间" << "报文ID" << "报文长度" << "数据" << "接收次数";
     ui->tableWidget->setHorizontalHeaderLabels(headers);
 
     // 第0列宽度80
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
-    ui->tableWidget->setColumnWidth(0, 70);
+    ui->tableWidget->setColumnWidth(0, 80);
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Fixed);
     ui->tableWidget->setColumnWidth(1, 100);
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Fixed);
@@ -220,8 +208,12 @@ void MainWindow::initTableForID()
     // 其他列自动拉伸
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Stretch);
 
-    //清空
+    //清空所有映射表和计数器
     m_frameCountMap.clear();
+
+    s_canIdToRow.clear();
+    s_nextRow = 0;
+
 }
 
 //更新计数
@@ -282,25 +274,30 @@ void MainWindow::on_lineEdit_data_textEdited(const QString &arg1)
 }
 
 //中断异常提醒
-void MainWindow::slotsExceptionStatus(int i)
+void MainWindow::slotsExceptionStatus(int i,int num = 0)
 {
-    static int num = 0;
     switch (i)
     {
     case -1:
-        ui->statusBar->showMessage(QString("usb设备连接已断开！%1").arg(num++),1000);
+        ui->statusBar->showMessage(QString("usb设备连接已断开！%1").arg(num),1000);
+        QMessageBox::warning(this,"警告","usb设备连接已断开！任务已暂停!");
+        ui->btn_send->setEnabled(false);
         break;
     case -2:
-        ui->statusBar->showMessage(QString("CAN 控制器总线关闭！%1").arg(num++),1000);
+        ui->statusBar->showMessage(QString("CAN 控制器总线关闭！%1").arg(num),1000);
+        QMessageBox::warning(this,"警告","CAN 控制器总线关闭！任务已暂停!");
+        ui->btn_send->setEnabled(false);
         break;
     case -3:
-        ui->statusBar->showMessage(QString("CAN 控制器消极错误！%1").arg(num++),1000);
+        ui->statusBar->showMessage(QString("CAN 控制器消极错误！信号线连接不稳定。%1").arg(num),1000);
         break;
     case -4:
-        ui->statusBar->showMessage(QString("CAN 控制器错误报警！%1").arg(num++),1000);
+        ui->statusBar->showMessage(QString("CAN 控制器错误报警！%1").arg(num),1000);
         break;
     case -5:
-        ui->statusBar->showMessage(QString("CAN 控制器处于 BusOff 状态！%1").arg(num++),1000);
+        ui->statusBar->showMessage(QString("CAN 控制器处于 BusOff 状态！%1").arg(num),1000);
+        QMessageBox::warning(this,"警告","CAN 控制器处于 BusOff 状态！任务已暂停!");
+        ui->btn_send->setEnabled(false);
         break;
     default:
         return;

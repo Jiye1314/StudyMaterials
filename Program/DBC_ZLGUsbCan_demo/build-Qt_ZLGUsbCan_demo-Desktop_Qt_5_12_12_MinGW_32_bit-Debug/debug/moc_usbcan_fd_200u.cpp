@@ -74,22 +74,22 @@ static const uint qt_meta_data_USBCAN_FD_200U[] = {
  // signals: name, argc, parameters, tag, flags
        1,    1,   54,    2, 0x06 /* Public */,
        4,    4,   57,    2, 0x06 /* Public */,
-       9,    1,   66,    2, 0x06 /* Public */,
+       9,    2,   66,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      11,    1,   69,    2, 0x0a /* Public */,
-      12,    1,   72,    2, 0x0a /* Public */,
-      13,    0,   75,    2, 0x0a /* Public */,
-      14,    0,   76,    2, 0x0a /* Public */,
-      15,    0,   77,    2, 0x0a /* Public */,
+      11,    1,   71,    2, 0x0a /* Public */,
+      12,    1,   74,    2, 0x0a /* Public */,
+      13,    0,   77,    2, 0x0a /* Public */,
+      14,    0,   78,    2, 0x0a /* Public */,
+      15,    0,   79,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int,    3,
     QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int, QMetaType::QByteArray,    5,    6,    7,    8,
-    QMetaType::Void, QMetaType::Int,   10,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,   10,    3,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::Double,    3,
+    QMetaType::Void, QMetaType::Int,    3,
     QMetaType::Void, QMetaType::Int,    3,
     QMetaType::Void,
     QMetaType::Void,
@@ -106,8 +106,8 @@ void USBCAN_FD_200U::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         switch (_id) {
         case 0: _t->signalsSendNum((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 1: _t->signalsReceivedFrame((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< const QByteArray(*)>(_a[4]))); break;
-        case 2: _t->signalsExceptionStatus((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 3: _t->slotsSetLSpeedSet1((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 2: _t->signalsExceptionStatus((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 3: _t->slotsSetLSpeedSet1((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 4: _t->slotsSetLPWMenable1((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 5: _t->onTimerLiftPDO(); break;
         case 6: _t->onTimerTractionPDO(); break;
@@ -131,7 +131,7 @@ void USBCAN_FD_200U::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
             }
         }
         {
-            using _t = void (USBCAN_FD_200U::*)(int );
+            using _t = void (USBCAN_FD_200U::*)(int , int );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&USBCAN_FD_200U::signalsExceptionStatus)) {
                 *result = 2;
                 return;
@@ -195,9 +195,9 @@ void USBCAN_FD_200U::signalsReceivedFrame(int _t1, int _t2, int _t3, const QByte
 }
 
 // SIGNAL 2
-void USBCAN_FD_200U::signalsExceptionStatus(int _t1)
+void USBCAN_FD_200U::signalsExceptionStatus(int _t1, int _t2)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
     QMetaObject::activate(this, &staticMetaObject, 2, _a);
 }
 QT_WARNING_POP

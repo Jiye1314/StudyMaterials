@@ -109,8 +109,8 @@ static const uint qt_meta_data_MainWindow[] = {
       21,    1,  127,    2, 0x08 /* Private */,
       23,    0,  130,    2, 0x08 /* Private */,
       24,    1,  131,    2, 0x08 /* Private */,
-      26,    1,  134,    2, 0x08 /* Private */,
-      28,    1,  137,    2, 0x08 /* Private */,
+      26,    2,  134,    2, 0x08 /* Private */,
+      28,    1,  139,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int,    3,
@@ -130,7 +130,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::Int,   22,
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString,   25,
-    QMetaType::Void, QMetaType::Int,   27,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,   27,    7,
     QMetaType::Void, QMetaType::Int,   22,
 
        0        // eod
@@ -157,7 +157,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 12: _t->on_comboBox_currentIndexChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 13: _t->on_btn_setL_speedSet_clicked(); break;
         case 14: _t->on_lineEdit_data_textEdited((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 15: _t->slotsExceptionStatus((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 15: _t->slotsExceptionStatus((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 16: _t->on_comboBox_dataFrame_currentIndexChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
