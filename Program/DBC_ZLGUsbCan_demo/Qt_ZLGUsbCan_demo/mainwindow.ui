@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1026</width>
-    <height>653</height>
+    <width>1105</width>
+    <height>626</height>
    </rect>
   </property>
   <property name="font">
@@ -24,7 +24,7 @@
      <rect>
       <x>20</x>
       <y>20</y>
-      <width>731</width>
+      <width>811</width>
       <height>361</height>
      </rect>
     </property>
@@ -82,8 +82,8 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>760</x>
-      <y>20</y>
+      <x>840</x>
+      <y>10</y>
       <width>251</width>
       <height>561</height>
      </rect>
@@ -260,18 +260,48 @@
      <rect>
       <x>22</x>
       <y>392</y>
-      <width>731</width>
+      <width>811</width>
       <height>191</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="1" column="3">
-      <widget class="QSpinBox" name="spinBox">
-       <property name="maximum">
-        <number>10000</number>
+     <item row="0" column="9" colspan="2">
+      <widget class="QLineEdit" name="lineEdit_num">
+       <property name="enabled">
+        <bool>false</bool>
        </property>
-       <property name="singleStep">
-        <number>50</number>
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="5">
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="1" column="6" colspan="4">
+      <widget class="QLabel" name="label_L_PWMenable1">
+       <property name="text">
+        <string>L-PWMenable1：</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2" colspan="2">
+      <widget class="QLineEdit" name="lineEdit_nowrpm">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>0</string>
        </property>
       </widget>
      </item>
@@ -289,41 +319,6 @@
        </item>
       </widget>
      </item>
-     <item row="0" column="1" colspan="3">
-      <widget class="QPushButton" name="btn_send">
-       <property name="text">
-        <string>开启定时发送</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="11">
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>次</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="6" colspan="4">
-      <widget class="QLabel" name="label_L_PWMenable1">
-       <property name="text">
-        <string>L-PWMenable1：</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="4">
-      <widget class="QPushButton" name="btn_setL_speedSet">
-       <property name="text">
-        <string>设置转数</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="4">
-      <widget class="QPushButton" name="btn_closeDev">
-       <property name="text">
-        <string>关闭设备</string>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="0" colspan="2">
       <widget class="QLabel" name="label_3">
        <property name="text">
@@ -338,30 +333,17 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="2" colspan="2">
-      <widget class="QLineEdit" name="lineEdit_nowrpm">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
+     <item row="0" column="7" colspan="2">
+      <widget class="QLabel" name="label">
        <property name="text">
-        <string>0</string>
+        <string>共接收：</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="0" colspan="3">
-      <widget class="QLabel" name="label_L_speedSet1">
+     <item row="0" column="4">
+      <widget class="QPushButton" name="btn_closeDev">
        <property name="text">
-        <string>L-speedSet1：</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="9" colspan="2">
-      <widget class="QLineEdit" name="lineEdit_num">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>0</string>
+        <string>关闭设备</string>
        </property>
       </widget>
      </item>
@@ -372,25 +354,67 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="7" colspan="2">
-      <widget class="QLabel" name="label">
+     <item row="0" column="1" colspan="3">
+      <widget class="QPushButton" name="btn_send">
        <property name="text">
-        <string>共接收：</string>
+        <string>开启定时发送</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="5">
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+     <item row="0" column="11">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>次</string>
        </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
+      </widget>
+     </item>
+     <item row="1" column="4">
+      <widget class="QPushButton" name="btn_setL_speedSet">
+       <property name="text">
+        <string>设置转速</string>
        </property>
-      </spacer>
+      </widget>
+     </item>
+     <item row="2" column="10">
+      <widget class="QSpinBox" name="spinBox_KGRT_speedReq">
+       <property name="maximum">
+        <number>10000</number>
+       </property>
+       <property name="singleStep">
+        <number>50</number>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="11">
+      <widget class="QPushButton" name="btn_setKGRT_speedReq">
+       <property name="text">
+        <string>设置转速</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="5" colspan="5">
+      <widget class="QLabel" name="label_L_speedSet1_2">
+       <property name="text">
+        <string>KGRT-speedReq(转速)：</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" colspan="2">
+      <widget class="QLabel" name="label_L_speedSet1">
+       <property name="text">
+        <string>L-speedSet1：</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QSpinBox" name="spinBox">
+       <property name="maximum">
+        <number>10000</number>
+       </property>
+       <property name="singleStep">
+        <number>10</number>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -400,7 +424,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1026</width>
+     <width>1105</width>
      <height>33</height>
     </rect>
    </property>

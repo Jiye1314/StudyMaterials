@@ -61,6 +61,8 @@ private slots:
     //连接中断提醒
     void slotsExceptionStatus(int i, int num);
 
+    void on_btn_setKGRT_speedReq_clicked();
+
     void on_comboBox_dataFrame_currentIndexChanged(int index);
 
 private:

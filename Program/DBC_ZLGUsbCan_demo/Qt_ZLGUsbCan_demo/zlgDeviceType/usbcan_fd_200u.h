@@ -51,12 +51,16 @@ public:
     void buildTractionPDO4Frame(ZCAN_Transmit_Data &can);
     void buildLiftPDO1Can1Frame(ZCAN_Transmit_Data &can, int messCount);
     void buildTractionPDOFFrame(ZCAN_Transmit_Data &can, int messCountF);
+    void buildTestBenchSpeedReqFrame(ZCAN_Transmit_Data &can,int speed);
     // 定时发送CAN报文函数
     bool timerSend_can();
     //关闭函数
     void closeAllSend();
     //设置发送类型
     unsigned char type = 0;
+
+    //单独发送 1 次 KGRT_TestBenchSpeedReq报文 用于设置速度
+    bool sendKGRT_TestBenchSpeedReqFrame(int num);
 private:
     //保存设备句柄
     DEVICE_HANDLE deviceKey;

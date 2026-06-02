@@ -30,9 +30,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    usbC_fd_200u->closeAllSend();
+    usbC_fd_200u->closeDevice_fd_200u();
     delete ui;
-
 }
 
 
@@ -102,6 +101,8 @@ void MainWindow::btnSetEnableTrue()
     ui->lineEdit_frameID->setValidator(new QRegExpValidator(QRegExp("[0-9a-fA-F]+"), this));
     // 限制 数据 输入框：只能输入 0-9 a-f A-F 和 空格（方便输入 11 22 33）
     ui->lineEdit_data->setValidator(new QRegExpValidator(QRegExp("[0-9a-fA-F\\s]+"), this));
+    ui->spinBox_KGRT_speedReq->setEnabled(true);
+    ui->btn_setKGRT_speedReq->setEnabled(true);
 }
 
 void MainWindow::btnSetEnableFalse()
@@ -119,6 +120,8 @@ void MainWindow::btnSetEnableFalse()
     ui->comboBox_typeFrame->setEnabled(false);
     ui->lineEdit_data->setEnabled(false);
     ui->lineEdit_frameID->setEnabled(false);
+    ui->spinBox_KGRT_speedReq->setEnabled(false);
+    ui->btn_setKGRT_speedReq->setEnabled(false);
 }
 
 //手动发送
@@ -244,33 +247,46 @@ void MainWindow::on_btn_setL_speedSet_clicked()
 //文本框每输入两个字符之后加个空格
 void MainWindow::on_lineEdit_data_textEdited(const QString &arg1)
 {
-        // 1. 先把所有空格去掉
-        //QString raw = arg1.remove(QString(" "));
+    // 1. 保存当前光标原始位置（关键：记录用户正在编辑的位置）
+    int originalCursorPos = ui->lineEdit_data->cursorPosition();
 
-        // 2. 过滤掉非十六进制字符（只保留0-9、A-F、a-f）
-        QString hexOnly;
-        for (auto c : arg1) {
-            if ((c >= '0' && c <= '9') ||
+    // 2. 过滤：去掉空格 + 只保留十六进制字符（0-9、A-F、a-f）
+    QString hexOnly;
+    int validCursorPos = 0; // 记录光标在【纯十六进制字符串】中的位置（无空格）
+    for (int i = 0; i < arg1.size(); i++)
+    {
+        QChar c = arg1[i];
+        // 跳过空格
+        if (c == ' ') continue;
+        // 保留合法十六进制字符
+        if ((c >= '0' && c <= '9') ||
                 (c >= 'A' && c <= 'F') ||
                 (c >= 'a' && c <= 'f')) {
-                hexOnly += c;
+            hexOnly += c;
+            // 如果当前遍历的位置 ≤ 原始光标位置，光标有效索引+1
+            if (i < originalCursorPos) {
+                validCursorPos++;
             }
         }
+    }
 
-        // 3. 每两个字符之间加空格
-        QString formatted;
-        for (int i = 0; i < hexOnly.size(); i += 2) {
-            if (i > 0) formatted += " ";
-            formatted += hexOnly.mid(i, 2);
-        }
+    // 3. 格式化：每两个字符加一个空格
+    QString formatted;
+    for (int i = 0; i < hexOnly.size(); i += 2) {
+        if (i > 0) formatted += " ";
+        formatted += hexOnly.mid(i, 2);
+    }
 
-        // 4. 防止setText再次触发信号，先阻塞
-        ui->lineEdit_data->blockSignals(true);
-        ui->lineEdit_data->setText(formatted);
-        ui->lineEdit_data->blockSignals(false);
+    // 4. 计算格式化后【新的光标位置】（空格会占用位置，需要偏移）
+    // 公式：有效字符位置 + 前面的空格数（每2个字符1个空格）
+    int newCursorPos = validCursorPos + (validCursorPos / 2);
 
-        // 光标移到末尾，方便继续输入
-        ui->lineEdit_data->setCursorPosition(formatted.size());
+    // 5. 更新文本，防止信号递归，最后恢复光标位置
+    ui->lineEdit_data->blockSignals(true);
+    ui->lineEdit_data->setText(formatted);
+    ui->lineEdit_data->setCursorPosition(newCursorPos); // 核心：恢复光标
+    ui->lineEdit_data->blockSignals(false);
+
 }
 
 //中断异常提醒
@@ -311,5 +327,17 @@ void MainWindow::on_comboBox_dataFrame_currentIndexChanged(int index)
         ui->lineEdit_frameID->setMaxLength(3);
     else
         ui->lineEdit_frameID->setMaxLength(8);
+}
+
+//KGRT_speedReq
+void MainWindow::on_btn_setKGRT_speedReq_clicked()
+{
+    int num = ui->spinBox_KGRT_speedReq->value();
+    if(!usbC_fd_200u->sendKGRT_TestBenchSpeedReqFrame(num))
+    {
+        ui->statusBar->showMessage("设置转速失败！",1000);
+        return;
+    }
+    ui->statusBar->showMessage(QString("设置KGRT-speedReq转速成功！当前设置转速为：%1").arg(num),2000);
 }
 

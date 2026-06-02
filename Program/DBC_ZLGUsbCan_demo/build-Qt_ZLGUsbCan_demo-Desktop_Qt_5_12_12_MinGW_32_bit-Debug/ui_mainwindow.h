@@ -51,21 +51,24 @@ public:
     QPushButton *btn_send_2;
     QWidget *layoutWidget1;
     QGridLayout *gridLayout;
-    QSpinBox *spinBox;
-    QComboBox *comboBox;
-    QPushButton *btn_send;
-    QLabel *label_2;
+    QLineEdit *lineEdit_num;
+    QSpacerItem *horizontalSpacer;
     QLabel *label_L_PWMenable1;
-    QPushButton *btn_setL_speedSet;
-    QPushButton *btn_closeDev;
+    QLineEdit *lineEdit_nowrpm;
+    QComboBox *comboBox;
     QLabel *label_3;
     QLabel *label_4;
-    QLineEdit *lineEdit_nowrpm;
-    QLabel *label_L_speedSet1;
-    QLineEdit *lineEdit_num;
-    QPushButton *btn_openDev;
     QLabel *label;
-    QSpacerItem *horizontalSpacer;
+    QPushButton *btn_closeDev;
+    QPushButton *btn_openDev;
+    QPushButton *btn_send;
+    QLabel *label_2;
+    QPushButton *btn_setL_speedSet;
+    QSpinBox *spinBox_KGRT_speedReq;
+    QPushButton *btn_setKGRT_speedReq;
+    QLabel *label_L_speedSet1_2;
+    QLabel *label_L_speedSet1;
+    QSpinBox *spinBox;
     QMenuBar *menubar;
     QStatusBar *statusBar;
 
@@ -73,7 +76,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(1026, 653);
+        MainWindow->resize(1105, 626);
         QFont font;
         font.setPointSize(12);
         MainWindow->setFont(font);
@@ -105,10 +108,10 @@ public:
         QTableWidgetItem *__qtablewidgetitem9 = new QTableWidgetItem();
         tableWidget->setVerticalHeaderItem(4, __qtablewidgetitem9);
         tableWidget->setObjectName(QString::fromUtf8("tableWidget"));
-        tableWidget->setGeometry(QRect(20, 20, 731, 361));
+        tableWidget->setGeometry(QRect(20, 20, 811, 361));
         layoutWidget = new QWidget(centralwidget);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(760, 20, 251, 561));
+        layoutWidget->setGeometry(QRect(840, 10, 251, 561));
         verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
@@ -200,16 +203,30 @@ public:
 
         layoutWidget1 = new QWidget(centralwidget);
         layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(22, 392, 731, 191));
+        layoutWidget1->setGeometry(QRect(22, 392, 811, 191));
         gridLayout = new QGridLayout(layoutWidget1);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        spinBox = new QSpinBox(layoutWidget1);
-        spinBox->setObjectName(QString::fromUtf8("spinBox"));
-        spinBox->setMaximum(10000);
-        spinBox->setSingleStep(50);
+        lineEdit_num = new QLineEdit(layoutWidget1);
+        lineEdit_num->setObjectName(QString::fromUtf8("lineEdit_num"));
+        lineEdit_num->setEnabled(false);
 
-        gridLayout->addWidget(spinBox, 1, 3, 1, 1);
+        gridLayout->addWidget(lineEdit_num, 0, 9, 1, 2);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer, 1, 5, 1, 1);
+
+        label_L_PWMenable1 = new QLabel(layoutWidget1);
+        label_L_PWMenable1->setObjectName(QString::fromUtf8("label_L_PWMenable1"));
+
+        gridLayout->addWidget(label_L_PWMenable1, 1, 6, 1, 4);
+
+        lineEdit_nowrpm = new QLineEdit(layoutWidget1);
+        lineEdit_nowrpm->setObjectName(QString::fromUtf8("lineEdit_nowrpm"));
+        lineEdit_nowrpm->setEnabled(false);
+
+        gridLayout->addWidget(lineEdit_nowrpm, 2, 2, 1, 2);
 
         comboBox = new QComboBox(layoutWidget1);
         comboBox->addItem(QString());
@@ -217,31 +234,6 @@ public:
         comboBox->setObjectName(QString::fromUtf8("comboBox"));
 
         gridLayout->addWidget(comboBox, 1, 10, 1, 2);
-
-        btn_send = new QPushButton(layoutWidget1);
-        btn_send->setObjectName(QString::fromUtf8("btn_send"));
-
-        gridLayout->addWidget(btn_send, 0, 1, 1, 3);
-
-        label_2 = new QLabel(layoutWidget1);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-
-        gridLayout->addWidget(label_2, 0, 11, 1, 1);
-
-        label_L_PWMenable1 = new QLabel(layoutWidget1);
-        label_L_PWMenable1->setObjectName(QString::fromUtf8("label_L_PWMenable1"));
-
-        gridLayout->addWidget(label_L_PWMenable1, 1, 6, 1, 4);
-
-        btn_setL_speedSet = new QPushButton(layoutWidget1);
-        btn_setL_speedSet->setObjectName(QString::fromUtf8("btn_setL_speedSet"));
-
-        gridLayout->addWidget(btn_setL_speedSet, 1, 4, 1, 1);
-
-        btn_closeDev = new QPushButton(layoutWidget1);
-        btn_closeDev->setObjectName(QString::fromUtf8("btn_closeDev"));
-
-        gridLayout->addWidget(btn_closeDev, 0, 4, 1, 1);
 
         label_3 = new QLabel(layoutWidget1);
         label_3->setObjectName(QString::fromUtf8("label_3"));
@@ -253,41 +245,69 @@ public:
 
         gridLayout->addWidget(label_4, 2, 4, 1, 1);
 
-        lineEdit_nowrpm = new QLineEdit(layoutWidget1);
-        lineEdit_nowrpm->setObjectName(QString::fromUtf8("lineEdit_nowrpm"));
-        lineEdit_nowrpm->setEnabled(false);
+        label = new QLabel(layoutWidget1);
+        label->setObjectName(QString::fromUtf8("label"));
 
-        gridLayout->addWidget(lineEdit_nowrpm, 2, 2, 1, 2);
+        gridLayout->addWidget(label, 0, 7, 1, 2);
 
-        label_L_speedSet1 = new QLabel(layoutWidget1);
-        label_L_speedSet1->setObjectName(QString::fromUtf8("label_L_speedSet1"));
+        btn_closeDev = new QPushButton(layoutWidget1);
+        btn_closeDev->setObjectName(QString::fromUtf8("btn_closeDev"));
 
-        gridLayout->addWidget(label_L_speedSet1, 1, 0, 1, 3);
-
-        lineEdit_num = new QLineEdit(layoutWidget1);
-        lineEdit_num->setObjectName(QString::fromUtf8("lineEdit_num"));
-        lineEdit_num->setEnabled(false);
-
-        gridLayout->addWidget(lineEdit_num, 0, 9, 1, 2);
+        gridLayout->addWidget(btn_closeDev, 0, 4, 1, 1);
 
         btn_openDev = new QPushButton(layoutWidget1);
         btn_openDev->setObjectName(QString::fromUtf8("btn_openDev"));
 
         gridLayout->addWidget(btn_openDev, 0, 0, 1, 1);
 
-        label = new QLabel(layoutWidget1);
-        label->setObjectName(QString::fromUtf8("label"));
+        btn_send = new QPushButton(layoutWidget1);
+        btn_send->setObjectName(QString::fromUtf8("btn_send"));
 
-        gridLayout->addWidget(label, 0, 7, 1, 2);
+        gridLayout->addWidget(btn_send, 0, 1, 1, 3);
 
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        label_2 = new QLabel(layoutWidget1);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
 
-        gridLayout->addItem(horizontalSpacer, 1, 5, 1, 1);
+        gridLayout->addWidget(label_2, 0, 11, 1, 1);
+
+        btn_setL_speedSet = new QPushButton(layoutWidget1);
+        btn_setL_speedSet->setObjectName(QString::fromUtf8("btn_setL_speedSet"));
+
+        gridLayout->addWidget(btn_setL_speedSet, 1, 4, 1, 1);
+
+        spinBox_KGRT_speedReq = new QSpinBox(layoutWidget1);
+        spinBox_KGRT_speedReq->setObjectName(QString::fromUtf8("spinBox_KGRT_speedReq"));
+        spinBox_KGRT_speedReq->setMaximum(10000);
+        spinBox_KGRT_speedReq->setSingleStep(50);
+
+        gridLayout->addWidget(spinBox_KGRT_speedReq, 2, 10, 1, 1);
+
+        btn_setKGRT_speedReq = new QPushButton(layoutWidget1);
+        btn_setKGRT_speedReq->setObjectName(QString::fromUtf8("btn_setKGRT_speedReq"));
+
+        gridLayout->addWidget(btn_setKGRT_speedReq, 2, 11, 1, 1);
+
+        label_L_speedSet1_2 = new QLabel(layoutWidget1);
+        label_L_speedSet1_2->setObjectName(QString::fromUtf8("label_L_speedSet1_2"));
+
+        gridLayout->addWidget(label_L_speedSet1_2, 2, 5, 1, 5);
+
+        label_L_speedSet1 = new QLabel(layoutWidget1);
+        label_L_speedSet1->setObjectName(QString::fromUtf8("label_L_speedSet1"));
+
+        gridLayout->addWidget(label_L_speedSet1, 1, 0, 1, 2);
+
+        spinBox = new QSpinBox(layoutWidget1);
+        spinBox->setObjectName(QString::fromUtf8("spinBox"));
+        spinBox->setMaximum(10000);
+        spinBox->setSingleStep(10);
+
+        gridLayout->addWidget(spinBox, 1, 3, 1, 1);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1026, 33));
+        menubar->setGeometry(QRect(0, 0, 1105, 33));
         MainWindow->setMenuBar(menubar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
@@ -349,21 +369,23 @@ public:
         lineEdit_frameID->setText(QApplication::translate("MainWindow", "80", nullptr));
         lineEdit_frameID->setPlaceholderText(QApplication::translate("MainWindow", "80", nullptr));
         btn_send_2->setText(QApplication::translate("MainWindow", "\345\217\221\351\200\201\346\265\213\350\257\225\346\225\260\346\215\256", nullptr));
+        lineEdit_num->setText(QApplication::translate("MainWindow", "0", nullptr));
+        label_L_PWMenable1->setText(QApplication::translate("MainWindow", "L-PWMenable1\357\274\232", nullptr));
+        lineEdit_nowrpm->setText(QApplication::translate("MainWindow", "0", nullptr));
         comboBox->setItemText(0, QApplication::translate("MainWindow", "0", nullptr));
         comboBox->setItemText(1, QApplication::translate("MainWindow", "1", nullptr));
 
-        btn_send->setText(QApplication::translate("MainWindow", "\345\274\200\345\220\257\345\256\232\346\227\266\345\217\221\351\200\201", nullptr));
-        label_2->setText(QApplication::translate("MainWindow", "\346\254\241", nullptr));
-        label_L_PWMenable1->setText(QApplication::translate("MainWindow", "L-PWMenable1\357\274\232", nullptr));
-        btn_setL_speedSet->setText(QApplication::translate("MainWindow", "\350\256\276\347\275\256\350\275\254\346\225\260", nullptr));
-        btn_closeDev->setText(QApplication::translate("MainWindow", "\345\205\263\351\227\255\350\256\276\345\244\207", nullptr));
         label_3->setText(QApplication::translate("MainWindow", "\345\275\223\345\211\215\350\256\276\347\275\256\350\275\254\346\225\260\344\270\272\357\274\232", nullptr));
         label_4->setText(QApplication::translate("MainWindow", "rpm", nullptr));
-        lineEdit_nowrpm->setText(QApplication::translate("MainWindow", "0", nullptr));
-        label_L_speedSet1->setText(QApplication::translate("MainWindow", "L-speedSet1\357\274\232", nullptr));
-        lineEdit_num->setText(QApplication::translate("MainWindow", "0", nullptr));
-        btn_openDev->setText(QApplication::translate("MainWindow", "\346\211\223\345\274\200\350\256\276\345\244\207", nullptr));
         label->setText(QApplication::translate("MainWindow", "\345\205\261\346\216\245\346\224\266\357\274\232", nullptr));
+        btn_closeDev->setText(QApplication::translate("MainWindow", "\345\205\263\351\227\255\350\256\276\345\244\207", nullptr));
+        btn_openDev->setText(QApplication::translate("MainWindow", "\346\211\223\345\274\200\350\256\276\345\244\207", nullptr));
+        btn_send->setText(QApplication::translate("MainWindow", "\345\274\200\345\220\257\345\256\232\346\227\266\345\217\221\351\200\201", nullptr));
+        label_2->setText(QApplication::translate("MainWindow", "\346\254\241", nullptr));
+        btn_setL_speedSet->setText(QApplication::translate("MainWindow", "\350\256\276\347\275\256\350\275\254\351\200\237", nullptr));
+        btn_setKGRT_speedReq->setText(QApplication::translate("MainWindow", "\350\256\276\347\275\256\350\275\254\351\200\237", nullptr));
+        label_L_speedSet1_2->setText(QApplication::translate("MainWindow", "KGRT-speedReq(\350\275\254\351\200\237)\357\274\232", nullptr));
+        label_L_speedSet1->setText(QApplication::translate("MainWindow", "L-speedSet1\357\274\232", nullptr));
     } // retranslateUi
 
 };

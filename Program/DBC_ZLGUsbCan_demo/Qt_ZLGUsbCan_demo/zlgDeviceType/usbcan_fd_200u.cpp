@@ -277,6 +277,37 @@ void USBCAN_FD_200U::buildTractionPDOFFrame(ZCAN_Transmit_Data &can,int messCoun
     can.frame.data[7] = 0;
 }
 
+//构造KGRT_TestBenchSpeedReq报文
+void USBCAN_FD_200U::buildTestBenchSpeedReqFrame(ZCAN_Transmit_Data &can,int speed)
+{
+    memset(&can,0,sizeof (can));
+    can.frame.can_id = MAKE_CAN_ID(0x0782,0,0,0);
+    can.frame.can_dlc = 8;
+    can.transmit_type = 0;
+
+    can.frame.data[0] = 5323524 & 0xff;
+    can.frame.data[1] = (5323524 >> 8) & 0xff;
+    can.frame.data[2] = (5323524 >> 16) & 0xff;
+    can.frame.data[3] = speed & 0xff;
+    can.frame.data[4] = (speed >> 8) & 0xff;
+    can.frame.data[5] = 0;
+    can.frame.data[6] = 0;
+    can.frame.data[7] = 0;
+}
+
+//单独发送 1 次 KGRT_TestBenchSpeedReq报文 用于设置速度
+bool USBCAN_FD_200U::sendKGRT_TestBenchSpeedReqFrame(int num)
+{
+    ZCAN_Transmit_Data frame;
+    buildTestBenchSpeedReqFrame(frame, num);
+
+    if(!ZCAN_Transmit(channelKey[m_txChannel], &frame, 1))
+    {
+        return false;
+    }
+    return true;
+}
+
 //定时发送CAN报文
 bool USBCAN_FD_200U::timerSend_can()
 {
